@@ -1,30 +1,40 @@
-import {Usuario} from "./model";
-import {mostrarUsuario} from "./functions";
+import express from 'express'
+import UsuarioRoutes from './routes/usuarios.routes'
+import ProductosRoutes from './routes/productos.routes'
 
-let usuarios: Usuario[] = []
-usuarios.push({nombre: "Alvaro", edad: 13})
-usuarios.push({nombre: "Alvaro1", edad: 13})
-usuarios.push({nombre: "Alvaro2", edad: 13})
-usuarios.push({nombre: "Alvaro3", edad: 13})
-usuarios.push({nombre: "Alvaro4", edad: 13})
-usuarios.push({nombre: "Alvaro5", edad: 13})
-usuarios[123] = {nombre: "Juan", edad: 47};
+class App {
+    private app: express.Application;
 
+    constructor() {
+        this.app = express()
 
-mostrarUsuario(usuarios[0]);
+        this.settings();
+        this.middlewares();
 
+        this.routes();
+        this.init();
 
-function test1(texto: string) {
-    let nombre:string[];
-    [...nombre] = texto;
-    console.log(nombre);
+    }
+
+    private settings() {
+        //ESCRIBIREMOS LAS PROPIEDADES NECESARIAS PARA EXPRESS
+    }
+
+    private middlewares() {
+
+    }
+
+    private routes() {
+        this.app.use('/usuarios', UsuarioRoutes)
+        this.app.use('/productos', ProductosRoutes)
+    }
+
+    private init() {
+        this.app.listen(3000, function init() {
+            console.log("Servidor inicado en el puerto 3000");
+        })
+    }
+
 }
 
-test1("Alvaro")
-
-
-export {}
-
-//mostrarUsuario({nombre: "Alvaro", edad: 13, dni: "3456789H"})
-
-
+new App();
