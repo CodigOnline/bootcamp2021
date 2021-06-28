@@ -1,6 +1,5 @@
 import express from 'express'
-import UsuarioRoutes from './routes/usuarios.routes'
-import ProductosRoutes from './routes/productos.routes'
+import UsuarioRouter from './routes/usuarios.routes'
 
 class App {
     private app: express.Application;
@@ -25,8 +24,7 @@ class App {
     }
 
     private routes() {
-        this.app.use('/usuarios', UsuarioRoutes)
-        this.app.use('/productos', ProductosRoutes)
+        this.app.use('/usuarios', UsuarioRouter)
     }
 
     private init() {

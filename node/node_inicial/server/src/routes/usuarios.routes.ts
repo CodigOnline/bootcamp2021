@@ -1,17 +1,20 @@
 import {Router} from "express";
-import {actualizarUsuario, crearUsuario, getOneUser, getUsuarios} from "../controllers/usuarios.controller";
+import {
+    findAll, findOneById, remove, save, update
+} from "../controllers/usuarios.controller";
 
 
 const router = Router();
 
 // /usuarios/
 router.route('/')
-    .get(getUsuarios)
-    .post(crearUsuario);
+    .get(findAll)
+    .post(save);
 // /usuarios/1/
-router.route('/1')
-    .get(getOneUser)
-    .put(actualizarUsuario);
+router.route('/:idUsuario')
+    .get(findOneById)
+    .put(update)
+    .delete(remove)
 
 export default router;
 
