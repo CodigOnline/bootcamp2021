@@ -35,6 +35,32 @@ export class UsuarioService {
         usuarios = usuarios.filter(usuario => usuario.id !== id)
         return true;
     }
+
+    save(nombre: string, email: string, password: string, username: string) {
+        let usuario: UsuarioModel = {
+            id: usuarios.length + 1,
+            nombre,
+            email,
+            password,
+            username,
+            role: EnumUsuarioRol.USER
+        }
+        usuarios.push(usuario)
+    }
+
+    update(id: number, nombre: string, email: string, password: string, username: string) {
+        console.log(password);
+        let usuario = usuarios.filter(usuario => usuario.id === id)[0]
+        let pos = usuarios.indexOf(usuario)
+        if (nombre) //if (nombre!==undefined)
+            usuario.nombre = nombre;
+        if (email)
+            usuario.email = email;
+        if (username)
+            usuario.username = username;
+        //usuarios[pos]=usuario;
+        usuarios.splice(pos, 1, usuario)
+    }
 }
 
 

@@ -20,7 +20,7 @@ class App {
     }
 
     private middlewares() {
-
+        this.app.use(express.json()) //TRANSFORMAR EL BODY EN UN JSON
     }
 
     private routes() {
