@@ -1,26 +1,14 @@
 //lista de usuarios
 
-import {EnumUsuarioRol, UsuarioModel} from "../database/models/usuario.model";
+import {Usuario, UsuarioModel} from "../database/models/usuario.model";
+import {Model} from "sequelize";
 
 let usuarios: UsuarioModel[] = []
 
-for (let i = 1; i <= 20; i++) {
-    let usuario: UsuarioModel = {
-        id: i,
-        nombre: `Usuario${i}`,
-        email: `usuario${i}@codigonline.com`,
-        password: '123456789',
-        role: EnumUsuarioRol.USER,
-        username: `usuario_${i}`
-    }
-    usuarios.push(usuario)
-}
-
 //findAll, findOneByID, update, delete, save
 export class UsuarioService {
-    findAll(): UsuarioModel[] {
-        //INSTRUCCIONES PARA EL BUSCAR TODOS DE MYSQL
-        return usuarios;
+    findAll(): Promise<Model<any, any>[]> {
+       return Usuario.findAll()
     }
 
     findOneById(id: number): UsuarioModel {
@@ -37,15 +25,9 @@ export class UsuarioService {
     }
 
     save(nombre: string, email: string, password: string, username: string) {
-        let usuario: UsuarioModel = {
-            id: usuarios.length + 1,
-            nombre,
-            email,
-            password,
-            username,
-            role: EnumUsuarioRol.USER
-        }
-        usuarios.push(usuario)
+       Usuario.create({
+           email,password,nombre,username
+       })
     }
 
     update(id: number, nombre: string, email: string, password: string, username: string) {

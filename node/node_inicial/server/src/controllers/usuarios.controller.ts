@@ -3,8 +3,8 @@ import {UsuarioService} from "../services/usuario.service";
 
 let usuarioService = new UsuarioService()
 
-export function findAll(_: express.Request, response: express.Response) {
-    let usuarios = usuarioService.findAll();
+export async function findAll(_: express.Request, response: express.Response) {
+    let usuarios = await usuarioService.findAll()
     response.send(usuarios);
 }
 
@@ -23,9 +23,9 @@ export function findOneById(request: express.Request, response: express.Response
     })
 }
 
-export function remove(request: express.Request, response: express.Response) {
-    let id = request.params.idUsuario
-    let deleted = usuarioService.removeOneById(Number(id));
+export function remove(request: express.Request, response: express.Response): express.Response {
+    let id:string = request.params.idUsuario
+    let deleted:boolean = usuarioService.removeOneById(Number(id));
     if (deleted) {
         return response.json({
             result: 'OK',
@@ -61,11 +61,11 @@ export function save(request: express.Request, response: express.Response) {
 
 }
 
-export function update(_: express.Request, response: express.Response) {
-   /* //PARAMS BODY
+export function update(request: express.Request, response: express.Response): express.Response {
+    //PARAMS BODY
     const id = request.params.idUsuario;
     const {nombre, email, password, username} = request.body;
-    usuarioService.update(Number(id), nombre, email, password, username)
-    response.send("update ok")*/
-    response.status(501).send("Este método no está implementando, prueba más tarde")
+    usuarioService.update(Number(id), nombre, email, password, username);
+    return response.send("update ok");
+    //response.status(501).send("Este método no está implementando, prueba más tarde")
 }

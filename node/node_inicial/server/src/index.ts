@@ -1,5 +1,8 @@
 import express from 'express'
 import UsuarioRouter from './routes/usuarios.routes'
+import config from './settings/config';
+import {mysql} from "./database/mysql";
+import {Usuario} from "./database/models/usuario.model";
 
 class App {
     private app: express.Application;
@@ -8,15 +11,15 @@ class App {
         this.app = express()
 
         this.settings();
-        this.middlewares();
 
+        this.middlewares();
         this.routes();
         this.init();
 
     }
 
     private settings() {
-        //ESCRIBIREMOS LAS PROPIEDADES NECESARIAS PARA EXPRESS
+        this.app.set('port', config.app.port) //3000 --> add una propiedad a express
     }
 
     private middlewares() {
@@ -28,9 +31,22 @@ class App {
     }
 
     private init() {
-        this.app.listen(3000, function init() {
-            console.log("Servidor inicado en el puerto 3000");
-        })
+        mysql.authenticate()
+            .then(() => {
+                console.log("BD CONECTADA");
+                // CRAR ALS TABLAS TABLSA Y INICIAR EL SERVER
+                Usuario.sync({force: true})
+                    .then(()=>{console.log("Tabla Usuario creada correctamente");})
+                    .catch((err:any)=>{
+                        console.log(`${err}`);
+                        console.log("No se ha podido crear la tabla usuarios");})
+                this.app.listen(this.app.get('port'), function init() {
+                    console.log("Servidor inicado en el puerto " + config.app.port);
+                })
+            })
+            .catch(() => {
+                console.log("No tenemos acceso a la BD");
+            })
     }
 
 }
