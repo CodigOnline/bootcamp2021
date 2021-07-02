@@ -1,42 +1,55 @@
 import express from "express";
 import {UsuarioService} from "../services/usuario.service";
+import {UsuarioModel} from "../database/models/usuario.model";
 
 let usuarioService = new UsuarioService()
 
-export async function findAll(_: express.Request, response: express.Response) {
-    let usuarios = await usuarioService.findAll()
-    response.send(usuarios);
+export function findAll(_: express.Request, response: express.Response) {
+    usuarioService.findAll()
+        .then((usuarios: UsuarioModel[]) => {
+            return response.json({usuarios})
+        })//estado correcto
+        .catch((err: Error) => {
+            return response.status(500).json({
+                msg: 'Error en la recuperación de los datos.',
+                error: err
+            })
+        })
 }
 
 export function findOneById(request: express.Request, response: express.Response) {
     let id = request.params.idUsuario
-    let usuario = usuarioService.findOneById(Number(id))
-    if (usuario === undefined) {
-        return response.status(404).json({
-            result: 'KO',
-            msg: `No se ha encontrado el usuario con el id ${id}`
+    usuarioService.findOneById(Number(id))
+        .then((usuario: UsuarioModel | null) => {
+            if (usuario === null) {
+                return response.status(404).json({msg: `No se ha encontrado el usuario con el id ${id}`})
+            }
+            return response.json({usuario})
         })
-    }
-    return response.json({
-        result: 'OK',
-        usuario
-    })
+        .catch((err: Error) => {
+            return response.status(500).json({
+                msg: 'Error en la recuperación de los datos.',
+                error: err
+            })
+        })
+
 }
 
-export function remove(request: express.Request, response: express.Response): express.Response {
-    let id:string = request.params.idUsuario
-    let deleted:boolean = usuarioService.removeOneById(Number(id));
-    if (deleted) {
-        return response.json({
-            result: 'OK',
-            msg: `El usuario con el id ${id} se ha eliminado correctamente`
+export function remove(request: express.Request, response: express.Response) {
+    let id: string = request.params.idUsuario
+    usuarioService.removeOneById(Number(id))
+        .then((num: number) => {
+            if (num === 0) {
+                return response.status(404).json({msg: `No se ha encontrado el usuario con el id ${id}`})
+            }
+            return response.json({msg: `El usuario con el id ${id} se ha eliminado correctamente`})
         })
-    }
-    return response.json({
-        result: 'KO',
-        msg: `No se ha encontrado el usuario con el id ${id}`
-    })
-
+        .catch((err: Error) => {
+            return response.status(500).json({
+                msg: 'Error en la eliminación de los datos.',
+                error: err
+            })
+        })
 }
 
 export function save(request: express.Request, response: express.Response) {
@@ -52,20 +65,39 @@ export function save(request: express.Request, response: express.Response) {
 
     if (username === undefined || email === undefined || password === undefined || nombre === undefined) {
         return response.status(400).json({
-            result: 'KO',
             msg: 'Revisa los datos enviados.'
         })
     }
     usuarioService.save(nombre, email, password, username)
-    response.send("OK")
+        .then((usuario: UsuarioModel) => {
+            return response.json({usuario})
+        })
+        .catch((err: Error) => {
+            return response.status(500).json({
+                msg: 'Error en el guardado de los datos.',
+                error: err
+            })
+        })
 
 }
 
-export function update(request: express.Request, response: express.Response): express.Response {
+export function update(request: express.Request, response: express.Response) {
     //PARAMS BODY
     const id = request.params.idUsuario;
-    const {nombre, email, password, username} = request.body;
-    usuarioService.update(Number(id), nombre, email, password, username);
-    return response.send("update ok");
+    const {nombre, email, username} = request.body;
+    usuarioService.update(Number(id), nombre, email, username)
+        .then((actualizados: [number, any]) => {
+            const [filas, _] = actualizados
+            if (filas === 0) {
+                return response.status(404).json({msg: `No se ha encontrado el usuario con el id ${id}`})
+            }
+            return response.json({msg:'Datos actualizados correctamente'})
+        })
+        .catch((err: Error) => {
+            return response.status(500).json({
+                msg: 'Error en la actualización de los datos.',
+                error: err
+            })
+        })
     //response.status(501).send("Este método no está implementando, prueba más tarde")
 }
