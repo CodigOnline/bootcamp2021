@@ -1,10 +1,12 @@
 import express from 'express'
 import UsuarioRouter from './routes/usuarios.routes';
 import ArticulosRouter from './routes/articulos.routes';
+import LoginRouter from './routes/login.routes';
 import config from './settings/config';
 import {mysql} from "./database/mysql";
-import {Usuario} from "./database/models/usuario.model";
-import {Articulo} from "./database/models/articulo.model";
+
+/*import {Usuario} from "./database/models/usuario.model";
+import {Articulo} from "./database/models/articulo.model";*/
 
 class App {
     private app: express.Application;
@@ -29,6 +31,7 @@ class App {
     }
 
     private routes() {
+        this.app.use('/login', LoginRouter)
         this.app.use('/usuarios', UsuarioRouter)
         this.app.use('/articulos', ArticulosRouter)
     }
@@ -38,20 +41,24 @@ class App {
             .then(() => {
                 console.log("BD CONECTADA");
                 // CRAR ALS TABLAS TABLSA Y INICIAR EL SERVER
-                Usuario.sync({alter: true})
-                    .then(()=>{console.log("Tabla Usuario creada correctamente");})
-                    .catch((err:any)=>{
+                /*Usuario.sync({alter: true})
+                    .then(() => {
+                        console.log("Tabla Usuario creada correctamente");
+                    })
+                    .catch((err: any) => {
                         console.log(`${err}`);
-                        console.log("No se ha podido crear la tabla usuarios");})
-                Articulo.sync({alter:true})//ELIMINA LA TABLA Y LUEGO LA CREA
-                    .then(()=>console.log('Tabla Articulos creada correctamente'))
-                    .catch((err:any)=>{
+                        console.log("No se ha podido crear la tabla usuarios");
+                    })
+                Articulo.sync({alter: true})//ELIMINA LA TABLA Y LUEGO LA CREA
+                    .then(() => console.log('Tabla Articulos creada correctamente'))
+                    .catch((err: any) => {
                         console.log(`${err}`);
-                        console.log("No se ha podido crear la tabla articulos");})
-/*                Articulo.sync() //INTENTA CREAR LA TABLA SI NO EXISTE, SI EXISTE NO HACE NADA
-                Articulo.sync({alter:true}) //ELIMINA LA TABLA Y LUEGO LA CREA*/
-                this.app.listen(this.app.get('port'), function init() {
-                    console.log("Servidor inicado en el puerto " + config.app.port);
+                        console.log("No se ha podido crear la tabla articulos");
+                    })
+                /*                Articulo.sync() //INTENTA CREAR LA TABLA SI NO EXISTE, SI EXISTE NO HACE NADA
+                                Articulo.sync({alter:true}) //ELIMINA LA TABLA Y LUEGO LA CREA*/
+                this.app.listen(this.app.get('port'), () => {
+                    console.log(`Servidor iniciado en el puerto ${this.app.get('port')}`);
                 })
             })
             .catch(() => {
