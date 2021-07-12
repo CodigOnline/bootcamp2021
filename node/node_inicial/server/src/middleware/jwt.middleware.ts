@@ -10,7 +10,7 @@ export function checkIsAdmin(request: express.Request, response: express.Respons
     if (token !== undefined) {
         //COMPROBAR SI EL USUARIO ES ADMIN O NO
 
-        jwt.verify(token, String(config.jwt.clave),
+        return jwt.verify(token, String(config.jwt.clave),
             function check(err: VerifyErrors | null, usuario: JwtPayload | undefined) {
                 if (err) {
                     console.log(err);
@@ -19,11 +19,11 @@ export function checkIsAdmin(request: express.Request, response: express.Respons
 
                 //COMPROBAR SI EL USUARIO ES ADMIN
                 if (usuario !== undefined) {
-                    if (usuario.role === EnumUsuarioRol.ADMIN){
+                    if (usuario.role === EnumUsuarioRol.ADMIN) {
                         return next()
-                    }else{
+                    } else {
                         console.log("El usuario no tiene permisos para acceder a este recurso");
-                        return response.status(401).json({msg:'Token invalido'})
+                        return response.status(401).json({msg: 'Token invalido'})
                     }
                 }
 
@@ -55,16 +55,37 @@ export function checkIsAdmin(request: express.Request, response: express.Respons
 
 }
 
-/*
+
 export function checkUser(request: express.Request, response: express.Response, next: express.NextFunction) {
     //recuperar token
-    //comprobar token
-    //--> comprobar caducidad
-    //comprobar si es admin o el id correspondiente
+    let token: string | undefined = request.get('Authorization')
+    console.log(token);
+    if (token == undefined) {
+        return response.status(401).json({msg: "No se ha encontrado ningún token"})
+    }
+    return jwt.verify(token, String(config.jwt.clave), (err: VerifyErrors | null, payload: JwtPayload | undefined) => {
+        if (err) {
+            console.log(err);
+            return response.status(401).json({msg: "Token invalido"}) //<-- al ver un return salimos de la función
+        }
+        //IS ADMIN
+        if (payload) { //CHECK de payload !== undefined
+            if (payload.role === EnumUsuarioRol.ADMIN) {
+                return next()
+            }
+            if (payload.id == request.params.idUsuario) {
+                return next()
+            }
+            return response.status(401).json({msg: 'No tienes permisos'})
+        } else {
+            return response.status(401).json({msg: 'Token invalido'})
+        }
 
-    // /usuarios/1
+        //usuario/1
+
+
+    })
 }
-*/
 
 
 //funcion que llama a otra funcion, pero esta segunda función la programamos nostros

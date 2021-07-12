@@ -4,6 +4,8 @@ import ArticulosRouter from './routes/articulos.routes';
 import LoginRouter from './routes/login.routes';
 import config from './settings/config';
 import {mysql} from "./database/mysql";
+import morgan from 'morgan'
+import Log from "./settings/logger.winston";
 
 /*import {Usuario} from "./database/models/usuario.model";
 import {Articulo} from "./database/models/articulo.model";*/
@@ -27,6 +29,7 @@ class App {
     }
 
     private middlewares() {
+        this.app.use(morgan('dev'));
         this.app.use(express.json()) //TRANSFORMAR EL BODY EN UN JSON
     }
 
@@ -39,30 +42,28 @@ class App {
     private init() {
         mysql.authenticate()
             .then(() => {
-                console.log("BD CONECTADA");
+                Log.info("La base de datos está ONLINE")
                 // CRAR ALS TABLAS TABLSA Y INICIAR EL SERVER
-                /*Usuario.sync({alter: true})
+                /*Usuario.sync()
                     .then(() => {
-                        console.log("Tabla Usuario creada correctamente");
+                        console.log("Comprobación de Usuario correcta");
                     })
                     .catch((err: any) => {
                         console.log(`${err}`);
                         console.log("No se ha podido crear la tabla usuarios");
                     })
-                Articulo.sync({alter: true})//ELIMINA LA TABLA Y LUEGO LA CREA
+                Articulo.sync()//ELIMINA LA TABLA Y LUEGO LA CREA
                     .then(() => console.log('Tabla Articulos creada correctamente'))
                     .catch((err: any) => {
                         console.log(`${err}`);
                         console.log("No se ha podido crear la tabla articulos");
-                    })
-                /*                Articulo.sync() //INTENTA CREAR LA TABLA SI NO EXISTE, SI EXISTE NO HACE NADA
-                                Articulo.sync({alter:true}) //ELIMINA LA TABLA Y LUEGO LA CREA*/
+                    })*/
                 this.app.listen(this.app.get('port'), () => {
-                    console.log(`Servidor iniciado en el puerto ${this.app.get('port')}`);
+                    Log.info(`Servidor iniciado en el puerto ${this.app.get('port')}`);
                 })
             })
             .catch(() => {
-                console.log("No tenemos acceso a la BD");
+                Log.error('Error en la connexión con la base de datos')
             })
     }
 

@@ -1,6 +1,7 @@
 //lista de usuarios
+import bcrypt from 'bcrypt'
 
-import {Usuario, UsuarioModel} from "../database/models/usuario.model";
+import {EnumUsuarioRol, Usuario, UsuarioModel} from "../database/models/usuario.model";
 
 //findAll, findOneByID, update, delete, save
 export class UsuarioService {
@@ -17,8 +18,10 @@ export class UsuarioService {
     }
 
     save(nombre: string, email: string, password: string, username: string) {
+        //encriptar password
+        const encryptPassword = bcrypt.hashSync(password,12)
         return Usuario.create({
-            nombre, email, password, username
+            nombre, email, password:encryptPassword, username
         })
     }
 
@@ -27,6 +30,17 @@ export class UsuarioService {
             {nombre: nombre, email: email, username: username},
             {where: {id: id}}
         )
+    }
+    updatePassword(){
+
+    }
+
+    changeToAdmin(id: string) {
+        return Usuario.update(
+            {role:EnumUsuarioRol.ADMIN},
+            {where:{id:id}}
+        )
+
     }
 }
 

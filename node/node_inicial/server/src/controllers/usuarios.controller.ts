@@ -68,7 +68,7 @@ export function save(request: express.Request, response: express.Response) {
             msg: 'Revisa los datos enviados.'
         })
     }
-    usuarioService.save(nombre, email, password, username)
+    return usuarioService.save(nombre, email, password, username)
         .then((usuario: UsuarioModel) => {
             return response.json({usuario})
         })
@@ -91,7 +91,7 @@ export function update(request: express.Request, response: express.Response) {
             if (filas === 0) {
                 return response.status(404).json({msg: `No se ha encontrado el usuario con el id ${id}`})
             }
-            return response.json({msg:'Datos actualizados correctamente'})
+            return response.json({msg: 'Datos actualizados correctamente'})
         })
         .catch((err: Error) => {
             return response.status(500).json({
@@ -100,4 +100,18 @@ export function update(request: express.Request, response: express.Response) {
             })
         })
     //response.status(501).send("Este método no está implementando, prueba más tarde")
+}
+
+export function changeToAdmin(request: express.Request, response: express.Response) {
+    const id = request.params.idUsuario;
+    usuarioService.changeToAdmin(id)
+        .then(() => {
+            response.json({msg: "Usuario actualizado a Admin"})
+        })
+        .catch((err: Error) => {
+            return response.status(500).json({
+                msg: 'Error en la actualización de los datos.',
+                error: err
+            })
+        })
 }

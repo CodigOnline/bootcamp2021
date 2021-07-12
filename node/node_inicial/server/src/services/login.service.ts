@@ -1,6 +1,7 @@
 import {Usuario, UsuarioModel} from "../database/models/usuario.model";
 import * as jwt from 'jsonwebtoken';
 import config from "../settings/config";
+import bcrypt from "bcrypt";
 
 export class LoginService {
     login(email: string, password: string): Promise<ResultLogin> {
@@ -10,7 +11,8 @@ export class LoginService {
                 if (usuario === null) {
                     return {resultado: false, msg: `No se ha encontrado con el usuario con el email ${email}`}; //QUE NO ES UN TOKEN
                 }
-                if (usuario.password !== password) {
+                const checkPassword = bcrypt.compareSync(password,usuario.password)
+                if (!checkPassword) {
                     return {
                         resultado: false,
                         msg: `La contraseña del usuario ${email} no coincide con la establecida en la bd`
