@@ -1,0 +1,133 @@
+body {
+    margin: 0;
+}
+
+div.main {
+    /*    position: fixed;
+        top: 6vh;*/
+    width: 100vw;
+    height: 100vh;
+    background-color: #453432;
+}
+
+nav {
+    transform: translateZ(1px);
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 5vh;
+    width: 100%; /*100% del viewport en width*/
+    padding: 4px;
+    background-color: #a2def1;
+    text-align: center;
+}
+
+nav a {
+    display: inline-block;
+    height: 100%;
+    width: 120px;
+    color: #474747;
+    padding: 0 4px 0 4px;
+    line-height: 5vh;
+}
+
+nav a:hover { /** COMO QUEREMOS QUE SE COMPORTE CUANDO PASE EL RATÓN POR ENCIMA*/
+    background-color: #679cad;
+    color: #000000;
+    border-radius: 5px;
+}
+
+nav a:active { /**COMO QUEREMOS QUE SE COMPORTE AL ACTIVARLO*/
+    background-color: #ececa0;
+    box-shadow: 0 2px 13px 2px rgba(217, 255, 238, 0.65); /** EJE X, EJE Y, BLUR, SPREAD*/
+}
+
+.content {
+    position: relative;
+    top: 6vh;
+    /* position: absolute;
+     overflow: scroll;
+     left: 3%;
+     top: 150px;*/
+    width: 90vw;
+    background-color: aqua;
+    margin: 0 auto;
+    height: 90%;
+    padding: 0 20px 0 20px;
+}
+
+.card {
+    display: inline-block;
+    border: black solid 3px;
+    width: 25vw; /*TAMAÑO DEL 25% del ViewPort en Ancho*/
+    height: 30vh; /* TAMAÑO del 20% del ViewPort en Alto*/
+    margin: 5px;
+    padding: 10px 0 10px 0;
+}
+
+.card > img {
+    width: 100%;
+    height: 25%;
+}
+
+.card > .card-body {
+    background-color: red;
+    height: 74%;
+    padding: 4px;
+}
+
+.card-body > h1 {
+    text-align: center;
+    margin: 3px 0 3px 0;
+
+}
+
+.card-body > p {
+    text-align: justify;
+    margin: 3px 0 3px 0;
+}
+
+.card-body > button {
+    width: 90%;
+    border-radius: 5px;
+    padding: 4px;
+    margin: 4px;
+    border: 1px solid #0d49fe;
+    background-color: #0d49fe;
+    color: white;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+
+.card-body > button:hover {
+    cursor: pointer;
+    color: #0d49fe;
+    background-color: white;
+
+}
+
+/*.contenido{
+    width: 45vw;
+    margin: 5vh auto 5vh auto;
+    text-align: center;
+    padding: 1vh;
+    background-color: blueviolet;
+}
+.stick{
+    margin: 0 auto;
+    height: 300px;
+    width: 20px;
+    position: sticky;
+    top: 5vh;
+    left: 0;
+}
+.btn{
+    transform: translateZ(3px);
+    position: sticky;
+    top: 200px;
+    left: 200px;
+    background-color: black;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+}*/
