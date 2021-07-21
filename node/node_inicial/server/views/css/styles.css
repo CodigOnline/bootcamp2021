@@ -1,0 +1,129 @@
+.card {
+    width: 90%;
+    margin: 5px 5% 5px 5%;
+    padding: 5px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.card-img-top {
+
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+}
+
+.card-title {
+    color: red;
+}
+
+.card-footer {
+    text-align: right;
+    font-size: 13px;
+}
+
+.card:hover {
+    -webkit-box-shadow: 0px 5px 25px 2px #000000;
+    box-shadow: 0px 5px 25px 2px #000000;
+}
+
+.xs, .sm, .md, .lg, .xl {
+    height: 5vh;
+    line-height: 5vh;
+    text-align: center;
+    background-color: orange;
+    border: 1px solid black;
+}
+
+
+@media screen and (max-width: 575px) {
+    .sm, .md, .lg, .xl {
+        display: none;
+    }
+
+    .xs {
+        background-color: aqua;
+    }
+
+    /* .card {
+         width: 80%;
+         margin: 3px 10% 0 10%;
+     }*/
+
+}
+
+@media screen and (min-width: 576px) and (max-width: 767px) {
+    .xs, .md, .lg, .xl {
+        display: none;
+    }
+
+    .sm {
+        background-color: blue;
+    }
+
+    /*
+        .card {
+            width: 80%;
+            margin: 3px 10% 0 10%;
+        }
+
+     */
+
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .xs, .sm, .lg, .xl {
+        display: none;
+    }
+
+    .md {
+        background-color: cornflowerblue;
+    }
+
+    /*
+    .card {
+        width: 45%;
+        margin: 3px 0 0 4%;
+    }
+
+     */
+
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+    .xs, .sm, .md, .xl {
+        display: none;
+    }
+
+    .lg {
+        background-color: darkslateblue;
+    }
+
+    /*
+        .card {
+            width: 350px;
+        }
+
+     */
+
+}
+
+@media screen and (min-width: 1200px) {
+    .xs, .sm, .md, .lg {
+        display: none;
+    }
+
+    .xl {
+        background-color: cadetblue;
+    }
+
+    /*
+        .card {
+            width: 450px;
+        }
+
+     */
+
+}
