@@ -40,6 +40,13 @@ class App {
     }
 
     private init() {
+            Log.error('Mensaje de Log desde NPM')
+            Log.warn('Mensaje de Log desde NPM') 
+            Log.info('Mensaje de Log desde NPM')
+            Log.http('Mensaje de Log desde NPM')
+            Log.verbose('Mensaje de Log desde NPM')
+            Log.debug('Mensaje de Log desde NPM')
+            Log.silly('Mensaje de Log desde NPM')
         mysql.authenticate()
             .then(() => {
                 Log.info("La base de datos está ONLINE")
