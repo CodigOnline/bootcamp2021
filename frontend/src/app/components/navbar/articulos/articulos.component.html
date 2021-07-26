@@ -1,3 +1,13 @@
-<p>articulos works!</p>
-<button [routerLink]="['/opiniones']" (click)="hasCliado()">Opiniones</button>
-
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-5">
+  <div class="col" *ngFor="let articulo of articulos">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">{{ articulo.nombre }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{articulo.precio}}€</h6>
+        <p class="card-text">{{articulo.descripcion}}</p>
+        <a href="#" class="card-link" *ngIf="articulo.vendido===false">Añadir al carrito</a>
+        <a href="#" class="card-link">Compartir</a>
+      </div>
+    </div>
+  </div>
+</div>
