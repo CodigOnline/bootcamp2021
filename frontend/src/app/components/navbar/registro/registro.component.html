@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-1">COL-1</div>
+  <div class="col-1">COL-2</div>
+  <div class="col-1">COL-3</div>
+  <div class="col-1">COL-4</div>
+  <div class="col-1">COL-5</div>
+  <div class="col-1">COL-6</div>
+  <div class="col-1">COL-7</div>
+  <div class="col-1">COL-8</div>
+  <div class="col-1">COL-9</div>
+  <div class="col-1">COL-10</div>
+  <div class="col-1">COL-11</div>
+  <div class="col-1">COL-12</div>
+</div>
+<form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
+  <div class="row g-3 align-items-center mb-3">
+    <div class="col-2 offset-2 col-md-1 offset-md-1">
+      <label for="input_nombre_completo" class="col-form-label">Nombre completo</label>
+    </div>
+    <div class="col-6 col-md-9">
+      <input type="text" id="input_nombre_completo" class="form-control" aria-describedby="NombreCompletoHelpInline" formControlName="nombre" required>
+    </div>
+  </div>
+  <div class="row g-3 align-items-center mb-3">
+    <div class="col-2 offset-2  col-md-1 offset-md-1">
+      <label for="input_nombre_usuario" class="col-form-label">Nombre usuario</label>
+    </div>
+    <div class="col-6 col-md-9">
+      <input type="text" id="input_nombre_usuario" class="form-control" aria-describedby="NombreUsuarioHelpInline">
+    </div>
+  </div>
+  <div class="row g-3 align-items-center mb-3">
+    <div class="col-2 offset-2  col-md-1 offset-md-1">
+      <label for="input_email" class="col-form-label">E-email</label>
+    </div>
+    <div class="col-6 col-md-9">
+      <input type="email" id="input_email" class="form-control" aria-describedby="EmailHelpInline">
+    </div>
+  </div>
+
+  <div class="row g-3 align-items-center mb-3">
+    <div class="col-2 offset-2 col-md-1 offset-md-1" >
+      <label for="input_password" class="col-form-label">Contraseña</label>
+    </div>
+    <div class="col-6 col-md-4">
+      <input type="password" id="input_password" class="form-control" aria-describedby="passwordHelpInline" minlength="8" maxlength="16" required>
+    </div>
+    <div class="col-2 offset-2 col-md-1 offset-md-0">
+      <label for="input_repeat_password" class="col-form-label">Repite contraseña</label>
+    </div>
+    <div class="col-6 col-md-4">
+      <input type="password" id="input_repeat_password" class="form-control" aria-describedby="passwordHelpInline">
+    </div>
+  </div>
+
+  <div class="offset-9 col-1 d-grid gap-1">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>
+
+<!-- GRUPOS DE ELEMENTOS RELACIONADOS ENTRE ELLOS
+-DIRECCIONES
+-PASSWORDS
+-->

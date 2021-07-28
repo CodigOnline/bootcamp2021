@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+
+body{
+  margin:0;
+  padding: 0;
+  background-color: rgba(235, 253, 219, 0.5);
+}
+
+.card-title{
+  color:blue;
+}
+
+a{
+  text-decoration: none;
+}

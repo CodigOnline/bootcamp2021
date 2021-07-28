@@ -8,6 +8,8 @@ import { OpinionesComponent } from './components/navbar/opiniones/opiniones.comp
 import {RouterModule} from "@angular/router";
 import { TestComponent } from './components/navbar/test/test.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { RegistroComponent } from './components/navbar/registro/registro.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -15,12 +17,14 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     ArticulosComponent,
     OpinionesComponent,
     TestComponent,
-    NavbarComponent
+    NavbarComponent,
+    RegistroComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
+    FormsModule, ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
