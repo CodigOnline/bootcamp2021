@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-registro',
@@ -10,6 +11,7 @@ export class RegistroComponent implements OnInit {
 
   JSON = JSON
   formulario: FormGroup
+
 
   // FormBuilder
   /**SINGLETON
@@ -42,7 +44,7 @@ export class RegistroComponent implements OnInit {
    * **/
 
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private httpClient: HttpClient) {
     this.formulario = this.formBuilder.group({});
   }
 
@@ -84,9 +86,32 @@ export class RegistroComponent implements OnInit {
       nombre, username, password, email
     }
     console.log(registro);
+    this.httpClient.post<Registrado>('http://localhost:3000/usuarios', registro).toPromise()
+      .then(data => {
+        console.log(data.usuario.nombre);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    /*const observable = this.httpClient.post('http://localhost:3000/usuarios', registro)
+    const subscription = observable.subscribe(data=>{console.log(data); }) //SUBSCRIBIR A SUS NOTIFICACIONES
+
+    // ....
+
+    subscription.unsubscribe()
+    */
+
+
+    /*this.httpClient.post('http://localhost:3000/usuarios', registro).subscribe(data => {
+      console.log(data);
+
+    })
+*/
+
 
     //SOLO NOS FALTA ENVIARLO AL BACKEND
-    
+
 
   }
 
@@ -114,4 +139,18 @@ interface Registro {
   username: string;
   password: string;
   email: string;
+}
+
+interface Registrado {
+  usuario: {
+    estado: boolean;
+    role: number;
+    id: number;
+    nombre: string;
+    email: string;
+    password: string;
+    username: string;
+    updatedAt: string;
+    createdAt: string;
+  }
 }
