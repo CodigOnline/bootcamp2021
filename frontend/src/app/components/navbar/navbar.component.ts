@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {RegistroService} from "../../services/registro.service";
 
 @Component({
   selector: 'app-navbar',
@@ -24,11 +25,12 @@ export class NavbarComponent implements OnInit {
     }
   ]
 
+
   constructor() {
   }
 
   ngOnInit(): void {
-    console.log("Iniciando componente navbar");
+
   }
 
 }

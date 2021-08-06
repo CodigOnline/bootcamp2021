@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-1">COL-1</div>
+  <div class="col-1">COL-2</div>
+  <div class="col-1">COL-3</div>
+  <div class="col-1">COL-4</div>
+  <div class="col-1">COL-5</div>
+  <div class="col-1">COL-6</div>
+  <div class="col-1">COL-7</div>
+  <div class="col-1">COL-8</div>
+  <div class="col-1">COL-9</div>
+  <div class="col-1">COL-10</div>
+  <div class="col-1">COL-11</div>
+  <div class="col-1">COL-12</div>
+</div>
+<form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
+
+
+  <div class="row g-3 align-items-center mb-3">
+    <div class="col-2 offset-2  col-md-1 offset-md-3">
+      <label for="input_email" class="col-form-label">E-email</label>
+    </div>
+    <div class="col-6 col-md-4">
+      <input type="email" id="input_email" class="form-control" aria-describedby="EmailHelpInline"
+             formControlName="email">
+      <div *ngIf="form('email').errors && (form('email').touched || form('email').dirty)" class="invalid">
+        <!--{{JSON.stringify(form('nombre').errors)}}-->
+        <!-- El interrogante determina si algo es o no es nullo, en caso de ser nullo lo ignora en caso de no serlo continua-->
+        <div *ngIf="form('email').errors?.required">
+          El campo es requerido
+        </div>
+        <!--<div *ngIf="formulario.get('nombre')?.errors?.minlength">
+          La longitud debe de ser de {{formulario.get('nombre')?.errors?.minlength.requiredLength}} caracteres.
+          {{formulario.get('nombre')?.errors?.minlength.requiredLength - formulario.get('nombre')?.errors?.minlength.actualLength}} restantes
+        </div>-->
+        <div *ngIf="form('email').errors?.pattern">
+          El email no cumple con las características
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row g-3 align-items-center mb-3">
+    <div class="col-2 offset-2 col-md-1 offset-md-3">
+      <label for="input_password" class="col-form-label">Contraseña</label>
+    </div>
+    <div class="col-6 col-md-4">
+      <input type="password" id="input_password" class="form-control" aria-describedby="passwordHelpInline"
+             formControlName="password">
+      <div *ngIf="form('password').errors && (form('password').touched || form('password').dirty)" class="invalid">
+        <!--{{JSON.stringify(form('nombre').errors)}}-->
+        <!-- El interrogante determina si algo es o no es nullo, en caso de ser nullo lo ignora en caso de no serlo continua-->
+        <div *ngIf="form('password').errors?.required">
+          El campo es requerido
+        </div>
+        <!--<div *ngIf="formulario.get('nombre')?.errors?.minlength">
+          La longitud debe de ser de {{formulario.get('nombre')?.errors?.minlength.requiredLength}} caracteres.
+          {{formulario.get('nombre')?.errors?.minlength.requiredLength - formulario.get('nombre')?.errors?.minlength.actualLength}} restantes
+        </div>-->
+        <div *ngIf="form('password').errors?.minlength">
+          {{fieldLength('password')}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="offset-8 offset-md-6 col-2">
+    <div class="d-grid">
+      <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+    </div>
+  </div>
+</form>
+
+<!-- GRUPOS DE ELEMENTOS RELACIONADOS ENTRE ELLOS
+-DIRECCIONES
+-PASSWORDS
+-->

@@ -4,12 +4,14 @@ import {ArticulosComponent} from "./components/navbar/articulos/articulos.compon
 import {OpinionesComponent} from "./components/navbar/opiniones/opiniones.component";
 import {TestComponent} from "./components/navbar/test/test.component";
 import {RegistroComponent} from "./components/navbar/registro/registro.component";
+import {LoginComponent} from "./components/navbar/login/login.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'registro', pathMatch: 'full'},
   {path: 'articulos', component: ArticulosComponent},
   {path: 'opiniones', component: OpinionesComponent},
   {path: 'registro', component: RegistroComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'test', component: TestComponent}
 ];
 

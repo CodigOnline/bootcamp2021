@@ -1,17 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
+import {RegistroService} from "../../../services/registro.service";
+import {Registro} from "../../../entities/Registro.model";
 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
-  styleUrls: ['./registro.component.css']
+  styleUrls: ['./registro.component.css'],
+  providers: [RegistroService] /*CICLO DE VIDA LIGADO AL COMPONENTE, CUANDO SE DESTRUYE EL COMPONENTE SE DESTRUYE EL SERVICIO*/
 })
 export class RegistroComponent implements OnInit {
 
-  JSON = JSON
   formulario: FormGroup
-
 
   // FormBuilder
   /**SINGLETON
@@ -44,11 +45,12 @@ export class RegistroComponent implements OnInit {
    * **/
 
 
-  constructor(private formBuilder: FormBuilder, private httpClient: HttpClient) {
+  constructor(private formBuilder: FormBuilder, private registroService: RegistroService) {
     this.formulario = this.formBuilder.group({});
   }
 
   ngOnInit(): void {
+    console.log("Iniciando componente registro");
     this.formulario = this.formBuilder.group({
         nombre: new FormControl('', [Validators.required, Validators.minLength(10), Validators.pattern('^[a-zA-Z ]+$')]),
         username: new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern('^[a-zA-Z0-9 ]+$')]),
@@ -86,13 +88,6 @@ export class RegistroComponent implements OnInit {
       nombre, username, password, email
     }
     console.log(registro);
-    this.httpClient.post<Registrado>('http://localhost:3000/usuarios', registro).toPromise()
-      .then(data => {
-        console.log(data.usuario.nombre);
-      })
-      .catch(err => {
-        console.log(err);
-      });
 
     /*const observable = this.httpClient.post('http://localhost:3000/usuarios', registro)
     const subscription = observable.subscribe(data=>{console.log(data); }) //SUBSCRIBIR A SUS NOTIFICACIONES
@@ -109,8 +104,8 @@ export class RegistroComponent implements OnInit {
     })
 */
 
-
     //SOLO NOS FALTA ENVIARLO AL BACKEND
+    this.registroService.registrar(registro)
 
 
   }
@@ -132,25 +127,4 @@ export class RegistroComponent implements OnInit {
     ${this.fieldRequiredLength(campo) - this.fieldActualLength(campo)} restantes`
   }
 
-}
-
-interface Registro {
-  nombre: string;
-  username: string;
-  password: string;
-  email: string;
-}
-
-interface Registrado {
-  usuario: {
-    estado: boolean;
-    role: number;
-    id: number;
-    nombre: string;
-    email: string;
-    password: string;
-    username: string;
-    updatedAt: string;
-    createdAt: string;
-  }
 }

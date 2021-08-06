@@ -71,7 +71,6 @@
     </div>
   </div>
 
-
   <div class="row g-3 align-items-center mb-3">
     <div class="col-2 offset-2  col-md-1 offset-md-1">
       <label for="input_email" class="col-form-label">E-email</label>
@@ -107,7 +106,7 @@
       <div *ngIf="form('password').errors && (form('password').touched || form('password').dirty)" class="invalid">
         <!--{{JSON.stringify(form('nombre').errors)}}-->
         <!-- El interrogante determina si algo es o no es nullo, en caso de ser nullo lo ignora en caso de no serlo continua-->
-        <div *ngIf="form('username').errors?.required">
+        <div *ngIf="form('password').errors?.required">
           El campo es requerido
         </div>
         <!--<div *ngIf="formulario.get('nombre')?.errors?.minlength">
