@@ -1,8 +1,18 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {
+  AbstractControl,
+  AbstractControlOptions,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  Validators
+} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {RegistroService} from "../../../services/registro.service";
 import {Registro} from "../../../entities/Registro.model";
+import Swal from "sweetalert2";
+import {ToastService} from "../../../services/toast.service";
 
 @Component({
   selector: 'app-registro',
@@ -45,7 +55,7 @@ export class RegistroComponent implements OnInit {
    * **/
 
 
-  constructor(private formBuilder: FormBuilder, private registroService: RegistroService) {
+  constructor(private formBuilder: FormBuilder, private registroService: RegistroService, private toast:ToastService) {
     this.formulario = this.formBuilder.group({});
   }
 
@@ -57,9 +67,7 @@ export class RegistroComponent implements OnInit {
         email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._+-]+@[a-z0-9.]+[.][a-z]{2,4}$')]),
         password: new FormControl('', [Validators.required, Validators.minLength(8)]),
         confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      }, {
-        validator: this.matchPassword
-      }
+      }, {validator: this.matchPassword} as AbstractControlOptions
     )
   }
 
@@ -76,7 +84,19 @@ export class RegistroComponent implements OnInit {
     this.formulario.markAllAsTouched()
 
     if (this.formulario.invalid) {
-      alert('Upps!! El formulario contiene errores')
+      console.log(this.formulario.errors);
+      this.toast.warning("Revisa el formulario",10000)
+
+     /* Swal.fire({
+        title: 'Custom animation with Animate.css',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      })*/
+      return;
     }
 
     const nombre = this.formulario.get('nombre')!.value
@@ -126,5 +146,5 @@ export class RegistroComponent implements OnInit {
     return `La longitud del ${campo} debe ser de ${this.fieldRequiredLength(campo)} caracteres.
     ${this.fieldRequiredLength(campo) - this.fieldActualLength(campo)} restantes`
   }
-
 }
+

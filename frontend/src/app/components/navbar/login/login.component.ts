@@ -3,6 +3,7 @@ import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "
 import {HttpClient} from "@angular/common/http";
 import {LoginService} from "../../../services/login.service";
 import {UsuarioLogin} from "../../../entities/Login.model";
+import {ToastService} from "../../../services/toast.service";
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   formulario: FormGroup
 
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService) {
+  constructor(private formBuilder: FormBuilder, private loginService: LoginService, private toast: ToastService) {
     this.formulario = this.formBuilder.group({});
   }
 
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit {
     this.formulario.markAllAsTouched()
 
     if (this.formulario.invalid) {
-      alert('Upps!! El formulario contiene errores')
+      this.toast.warning('Revisa el formulario', 10000)
+      return;
     }
 
     const usuario: UsuarioLogin = {

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RegistroService} from "../../services/registro.service";
+import {LoginService} from "../../services/login.service";
 
 @Component({
   selector: 'app-navbar',
@@ -26,13 +27,23 @@ export class NavbarComponent implements OnInit {
   ]
 
 
-  constructor() {
+  constructor(private loginService: LoginService) {
   }
 
   ngOnInit(): void {
 
   }
 
+  isLogged() {
+    return this.loginService.getLogged()
+  }
+  cerrarSesion(){
+    this.loginService.cerrarSesion();
+  }
+
+  getUsuario(){
+    return this.loginService.getUsuario()
+  }
 }
 
 interface Ruta {

@@ -20,7 +20,7 @@
       <label for="input_email" class="col-form-label">E-email</label>
     </div>
     <div class="col-6 col-md-4">
-      <input type="email" id="input_email" class="form-control" aria-describedby="EmailHelpInline"
+      <input type="email" id="input_email" class="form-control" aria-describedby="EmailHelpInline" [autofocus]="false"
              formControlName="email">
       <div *ngIf="form('email').errors && (form('email').touched || form('email').dirty)" class="invalid">
         <!--{{JSON.stringify(form('nombre').errors)}}-->

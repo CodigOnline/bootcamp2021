@@ -18,8 +18,12 @@
     "@angular/platform-browser": "~12.1.0-",
     "@angular/platform-browser-dynamic": "~12.1.0-",
     "@angular/router": "~12.1.0-",
+    "@sweetalert2/ngx-sweetalert2": "^10.0.0",
+    "animate.css": "^4.1.1",
     "bootstrap": "^5.0.2",
+    "jwt-decode": "^3.1.2",
     "rxjs": "~6.6.0",
+    "sweetalert2": "^11.1.2",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
   },

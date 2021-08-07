@@ -2,6 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {UsuarioLogin, UsuarioLogueado} from "../entities/Login.model";
 import {first} from "rxjs/operators";
+import {ToastService} from "./toast.service";
+import jwtDecode, {JwtPayload} from 'jwt-decode'
+import {UsuarioToken} from "../entities/Usuario.model";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +13,10 @@ export class LoginService {
 
   private token: string | null = null
   private logged = false;
+  private usuario: UsuarioToken | null = null
+
+  constructor(private http: HttpClient, private toast: ToastService) {
+  }
 
   getToken() {
     return this.token
@@ -19,7 +26,8 @@ export class LoginService {
     return this.logged
   }
 
-  constructor(private http: HttpClient) {
+  getUsuario() {
+    return this.usuario
   }
 
   login(usuario: UsuarioLogin) {
@@ -29,7 +37,29 @@ export class LoginService {
         console.log(data.token);
         this.token = data.token
         this.logged = true;
-        alert("Has iniciado sesión")
+        this.decodeToken()
+        this.toast.success("Has iniciado sesión con éxito")
       })
+  }
+
+  cerrarSesion() {
+    this.token = null;
+    this.logged = false;
+    this.toast.info("Has cerrado sesión con éxito")
+  }
+
+  decodeToken() {
+    if (this.token !== null) {
+      const decoded: UsuarioToken = jwtDecode(this.token)
+      if (decoded != null) {
+        console.log(decoded);
+        this.usuario = {
+          id: decoded.id,
+          username: decoded.username,
+          role: decoded.role
+        }
+        console.log(this.usuario);
+      }
+    }
   }
 }
