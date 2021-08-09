@@ -38,7 +38,13 @@ export class ToastService {
     this.Toast.fire({
       icon: 'warning',
       text: msg,
-      timer: timer
+      timer: timer,
+      showClass: {
+        popup: 'animate__animated animate__bounceInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
     })
   }
   info(msg: string, timer: number = 3000) {

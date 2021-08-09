@@ -1,3 +1,12 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)"
+             size="large"
+             color="#fff"
+             type="ball-triangle-path"
+             [fullScreen]="true">
+  <p style="color: white;margin-top:20px"> Cargando... </p>
+</ngx-spinner>
+
+
 <div class="row">
   <div class="col-1">COL-1</div>
   <div class="col-1">COL-2</div>
@@ -13,8 +22,6 @@
   <div class="col-1">COL-12</div>
 </div>
 <form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
-
-
   <div class="row g-3 align-items-center mb-3">
     <div class="col-2 offset-2  col-md-1 offset-md-3">
       <label for="input_email" class="col-form-label">E-email</label>
