@@ -18,8 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginService,
-    private toast: ToastService,
-    private spinner: NgxSpinnerService) {
+    private toast: ToastService) {
     this.formulario = this.formBuilder.group({});
   }
 
@@ -33,13 +32,12 @@ export class LoginComponent implements OnInit {
   }
 
   public enviarFormulario() {
-    this.formulario.markAllAsTouched()
+    /*this.formulario.markAllAsTouched()
 
     if (this.formulario.invalid) {
       this.toast.warning('Revisa el formulario', 10000)
       return;
-    }
-    this.spinner.show();
+    }*/
     const usuario: UsuarioLogin = {
       email: this.form("email").value,
       password: this.form("password").value

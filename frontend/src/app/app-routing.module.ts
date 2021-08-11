@@ -7,7 +7,7 @@ import {RegistroComponent} from "./components/navbar/registro/registro.component
 import {LoginComponent} from "./components/navbar/login/login.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: 'registro', pathMatch: 'full'},
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'articulos', component: ArticulosComponent},
   {path: 'opiniones', component: OpinionesComponent},
   {path: 'registro', component: RegistroComponent},

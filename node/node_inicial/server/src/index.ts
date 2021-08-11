@@ -31,6 +31,12 @@ class App {
     private middlewares() {
         this.app.use(morgan('dev'));
         this.app.use(express.json()) //TRANSFORMAR EL BODY EN UN JSON
+        this.app.use((_: express.Request, response: express.Response, next: express.NextFunction) => {
+            response.header('Access-Control-Allow-Origin', 'http://localhost:4200')
+            response.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+            response.header('Access-Control-Allow-Methods','GET, POST, PUT, DELETE')
+            next();
+        })
     }
 
     private routes() {
@@ -40,17 +46,20 @@ class App {
     }
 
     private init() {
-            Log.error('Mensaje de Log desde NPM')
-            Log.warn('Mensaje de Log desde NPM') 
-            Log.info('Mensaje de Log desde NPM')
-            Log.http('Mensaje de Log desde NPM')
-            Log.verbose('Mensaje de Log desde NPM')
-            Log.debug('Mensaje de Log desde NPM')
-            Log.silly('Mensaje de Log desde NPM')
+        Log.error('Mensaje de Log desde NPM')
+        Log.warn('Mensaje de Log desde NPM')
+        Log.info('Mensaje de Log desde NPM')
+        Log.http('Mensaje de Log desde NPM')
+        Log.verbose('Mensaje de Log desde NPM')
+        Log.debug('Mensaje de Log desde NPM')
+        Log.silly('Mensaje de Log desde NPM')
         mysql.authenticate()
             .then(() => {
                 Log.info("La base de datos está ONLINE")
                 // CRAR ALS TABLAS TABLSA Y INICIAR EL SERVER
+                mysql.sync().then(() => {
+                    console.log("Comprobación de tablas completada");
+                })
                 /*Usuario.sync()
                     .then(() => {
                         console.log("Comprobación de Usuario correcta");

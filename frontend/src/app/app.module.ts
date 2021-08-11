@@ -1,19 +1,21 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ArticulosComponent } from './components/navbar/articulos/articulos.component';
-import { OpinionesComponent } from './components/navbar/opiniones/opiniones.component';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule, Provider} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {ArticulosComponent} from './components/navbar/articulos/articulos.component';
+import {OpinionesComponent} from './components/navbar/opiniones/opiniones.component';
 import {RouterModule} from "@angular/router";
-import { TestComponent } from './components/navbar/test/test.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { RegistroComponent } from './components/navbar/registro/registro.component';
+import {TestComponent} from './components/navbar/test/test.component';
+import {NavbarComponent} from './components/navbar/navbar.component';
+import {RegistroComponent} from './components/navbar/registro/registro.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
-import { LoginComponent } from './components/navbar/login/login.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {LoginComponent} from './components/navbar/login/login.component';
 import {SweetAlert2Module} from "@sweetalert2/ngx-sweetalert2";
 import {NgxSpinnerModule} from "ngx-spinner";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {LoadingInterceptorService} from "./interceptors/loading.interceptor.service";
+import {ErrorsInterceptorService} from "./interceptors/errors.interceptor.service";
 
 @NgModule({
   declarations: [
@@ -37,7 +39,19 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     BrowserAnimationsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptorService,
+      multi: true
+    }, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorsInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {
+}

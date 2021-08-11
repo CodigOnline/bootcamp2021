@@ -71,19 +71,17 @@ export function checkUser(request: express.Request, response: express.Response, 
         //IS ADMIN
         if (payload) { //CHECK de payload !== undefined
             if (payload.role === EnumUsuarioRol.ADMIN) {
+                request.body.idUsuario = payload.id
                 return next()
             }
             if (payload.id == request.params.idUsuario) {
+                request.body.idUsuario = payload.id
                 return next()
             }
             return response.status(401).json({msg: 'No tienes permisos'})
         } else {
             return response.status(401).json({msg: 'Token invalido'})
         }
-
-        //usuario/1
-
-
     })
 }
 

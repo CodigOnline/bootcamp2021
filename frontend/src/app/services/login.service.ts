@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {UsuarioLogin, UsuarioLogueado} from "../entities/Login.model";
-import {first} from "rxjs/operators";
+import {filter, finalize, first, map, take, tap} from "rxjs/operators";
 import {ToastService} from "./toast.service";
-import jwtDecode, {JwtPayload} from 'jwt-decode'
+import jwtDecode from 'jwt-decode'
 import {UsuarioToken} from "../entities/Usuario.model";
 import {NgxSpinnerService} from "ngx-spinner";
+import {of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -38,19 +39,35 @@ export class LoginService {
   }
 
   login(usuario: UsuarioLogin) {
+/*
+    let obvs = of(1, 2, 3, 4, 5, 6) //ES COMO SI EL SERVER (BACKEND) ME DEVOLVIESE ESTOS 6 NÚMEROS
+    obvs.pipe(
+      tap(num => {
+        console.log("TAP NUM:" + num);
+      }), //SOLO LO UTILIZAMOS PARA MOSTRAR DATOS
+      filter(num => num > 5),
+      take(2),
+
+      map(num => "Número recibido: " + num),
+      finalize(() => {
+        console.log("Se han recibido todos los datos");
+      })
+    )
+      .subscribe((data) => {
+        console.log(data);
+      })
+
+    this.spinner.hide();*/
     this.http.post<UsuarioLogueado>("http://localhost:3000/login", usuario)
       .pipe(first())
       .subscribe((data: UsuarioLogueado) => {
-        this.spinner.hide();
         this.token = data.token
         localStorage.setItem("token", this.token)
         this.logged = true;
         this.decodeToken()
         this.toast.success("Has iniciado sesión con éxito")
-      }, (() => {
-        this.spinner.hide()
-        this.toast.error("Error al iniciar sesión. Comprueba los datos")
-      }))
+      })
+
   }
 
   cerrarSesion() {

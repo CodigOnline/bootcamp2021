@@ -1,6 +1,8 @@
 import express from "express";
+import * as jwt from 'jsonwebtoken';
 import {UsuarioService} from "../services/usuario.service";
 import {UsuarioModel} from "../database/models/usuario.model";
+import {JwtPayload} from "jsonwebtoken";
 
 let usuarioService = new UsuarioService()
 
@@ -19,6 +21,16 @@ export function findAll(_: express.Request, response: express.Response) {
 
 export function findOneById(request: express.Request, response: express.Response) {
     let id = request.params.idUsuario
+    const token = request.get('Authorization');
+    if (token) {
+        let decoded: JwtPayload | null = jwt.decode(token, {json: true})
+        if (decoded) {
+            console.log(decoded.id);
+
+
+        }
+    }
+
     usuarioService.findOneById(Number(id))
         .then((usuario: UsuarioModel | null) => {
             if (usuario === null) {
