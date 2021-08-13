@@ -29,7 +29,6 @@ export class LoadingInterceptorService implements HttpInterceptor {
         this.numPeticiones--;
         if (this.numPeticiones == 0)
           this.spinner.hide()
-        console.log("Petición finalizada");
 
       }))
   }

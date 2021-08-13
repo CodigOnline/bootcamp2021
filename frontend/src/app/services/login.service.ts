@@ -6,7 +6,7 @@ import {ToastService} from "./toast.service";
 import jwtDecode from 'jwt-decode'
 import {UsuarioToken} from "../entities/Usuario.model";
 import {NgxSpinnerService} from "ngx-spinner";
-import {of} from "rxjs";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -58,7 +58,7 @@ export class LoginService {
       })
 
     this.spinner.hide();*/
-    this.http.post<UsuarioLogueado>("http://localhost:3000/login", usuario)
+    this.http.post<UsuarioLogueado>(`${environment.backend}/login`, usuario)
       .pipe(first())
       .subscribe((data: UsuarioLogueado) => {
         this.token = data.token

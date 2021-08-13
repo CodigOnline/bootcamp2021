@@ -16,9 +16,7 @@ export class ErrorsInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req)
       .pipe(tap(
-        () => {
-          console.log("Petición finalizada");
-        },
+        () => {},
         error => { //ESTO SOLO SE LLAMA SI SE PRODUCE/RECIBE UN ERROR EN EL OBSERVABLE
           if (error instanceof HttpErrorResponse) { //COMPROBAR SI E ES DEL TIPO HTTPERRORRESPONSE
             //PARA COMPROBAR SI SON ERRORES DE HTTP

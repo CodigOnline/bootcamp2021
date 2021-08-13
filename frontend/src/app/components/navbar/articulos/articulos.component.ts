@@ -1,67 +1,42 @@
 import {Component, OnInit} from '@angular/core';
+import {animate, query, stagger, style, transition, trigger, useAnimation} from "@angular/animations";
+import {lightSpeedIn} from "ng-animate";
+import {GeneratedStyles} from "../../../utils/animate";
+import {ArticuloService} from "../../../services/articulo.service";
+import {ArticuloModel} from "../../../entities/Articulo.model";
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-articulos',
   templateUrl: './articulos.component.html',
-  styleUrls: ['./articulos.component.css']
+  styleUrls: ['./articulos.component.css'],
+  animations: [
+    trigger('ngForAnimation', [
+      transition('* <=> *', [
+        query(':enter', [
+          style({opacity: 0}), //ESTADO INICIAL TRANSPARENTE
+          stagger('50ms', //EJECUCiÓN DE LA ANIMACIÓN
+            animate('2s ease', GeneratedStyles.Animations.backInRight)
+          )
+        ], {optional: true}),
+      ])
+    ])
+  ]
 })
+
 export class ArticulosComponent implements OnInit {
 
-  articulos: Articulo[] = []
+  articulos: ArticuloModel[] = []
 
-  constructor() {
+  constructor(private articuloService: ArticuloService) {
   }
 
   ngOnInit(): void {
-    this.articulos = [
-      {
-        id: 1,
-        nombre: "Producto 1",
-        descripcion: "Clear fights lead to the urchin.",
-        precio: 3.47,
-        vendido:true
-      }, {
-        id: 2,
-        nombre: "Producto 2",
-        descripcion: "Damn yer son, feed the jolly roger. .",
-        precio: 6.37,
-        vendido:false
-      }, {
-        id: 3,
-        nombre: "Producto 3",
-        descripcion: "Clear fights lead to the urchin.",
-        precio: 8.45,
-        vendido:true
-      }, {
-        id: 4,
-        nombre: "Producto 4",
-        descripcion: "Clear fights lead to the urchin.",
-        precio: 2.67,
-        vendido:false
-      }, {
-        id: 5,
-        nombre: "Producto 5",
-        descripcion: "Clear fights lead to the urchin.",
-        precio: 9.87,
-        vendido:false
-      }, {
-        id: 6,
-        nombre: "Producto 6",
-        descripcion: "Clear fights lead to the urchin.",
-        precio: 6.34,
-        vendido:true
-      }
-    ]
-    this.articulos = this.articulos.filter(articulo => articulo.precio > 5)
+    this.articuloService.findAll()
+      .pipe(first())
+      .subscribe(data => {
+        console.log(data.articulos);
+        this.articulos = data.articulos
+      })
   }
-
-
-}
-
-interface Articulo {
-  id: number,
-  nombre: string,
-  descripcion: string,
-  precio: number
-  vendido: boolean
 }
