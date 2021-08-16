@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {animate, query, stagger, style, transition, trigger, useAnimation} from "@angular/animations";
-import {lightSpeedIn} from "ng-animate";
+import {animate, query, stagger, style, transition, trigger} from "@angular/animations";
 import {GeneratedStyles} from "../../../utils/animate";
 import {ArticuloService} from "../../../services/articulo.service";
 import {ArticuloModel} from "../../../entities/Articulo.model";
-import {first} from "rxjs/operators";
+import {LoginService} from "../../../services/login.service";
+import {faEdit} from "@fortawesome/free-regular-svg-icons";
+import {faTrashAlt} from "@fortawesome/free-regular-svg-icons";
+
 
 @Component({
   selector: 'app-articulos',
@@ -16,7 +18,7 @@ import {first} from "rxjs/operators";
         query(':enter', [
           style({opacity: 0}), //ESTADO INICIAL TRANSPARENTE
           stagger('50ms', //EJECUCiÓN DE LA ANIMACIÓN
-            animate('2s ease', GeneratedStyles.Animations.backInRight)
+            animate('500ms ease', GeneratedStyles.Animations.backInRight)
           )
         ], {optional: true}),
       ])
@@ -25,18 +27,24 @@ import {first} from "rxjs/operators";
 })
 
 export class ArticulosComponent implements OnInit {
+  editar = faEdit;
+  faTrash= faTrashAlt
 
   articulos: ArticuloModel[] = []
 
-  constructor(private articuloService: ArticuloService) {
+  constructor(private articuloService: ArticuloService,
+              private loginService: LoginService) {
   }
 
   ngOnInit(): void {
-    this.articuloService.findAll()
-      .pipe(first())
+    this.articuloService.getArticulos()
       .subscribe(data => {
-        console.log(data.articulos);
-        this.articulos = data.articulos
+        console.log(data);
+        this.articulos = data
       })
+  }
+
+  isAdmin() {
+    return this.loginService.isAdmin();
   }
 }

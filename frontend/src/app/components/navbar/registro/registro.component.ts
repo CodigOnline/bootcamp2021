@@ -14,6 +14,11 @@ import {Registro} from "../../../entities/Registro.model";
 import Swal from "sweetalert2";
 import {ToastService} from "../../../services/toast.service";
 
+import {faUser} from "@fortawesome/free-regular-svg-icons";
+import {faAt} from "@fortawesome/free-solid-svg-icons";
+import {faKey} from "@fortawesome/free-solid-svg-icons";
+import {faUserCircle} from "@fortawesome/free-solid-svg-icons";
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
@@ -21,7 +26,10 @@ import {ToastService} from "../../../services/toast.service";
   providers: [RegistroService] /*CICLO DE VIDA LIGADO AL COMPONENTE, CUANDO SE DESTRUYE EL COMPONENTE SE DESTRUYE EL SERVICIO*/
 })
 export class RegistroComponent implements OnInit {
-
+  faUser = faUser
+  faAt = faAt
+  faKey = faKey
+  faUserCircle = faUserCircle
   formulario: FormGroup
 
   // FormBuilder
@@ -55,7 +63,7 @@ export class RegistroComponent implements OnInit {
    * **/
 
 
-  constructor(private formBuilder: FormBuilder, private registroService: RegistroService, private toast:ToastService) {
+  constructor(private formBuilder: FormBuilder, private registroService: RegistroService, private toast: ToastService) {
     this.formulario = this.formBuilder.group({});
   }
 
@@ -85,17 +93,17 @@ export class RegistroComponent implements OnInit {
 
     if (this.formulario.invalid) {
       console.log(this.formulario.errors);
-      this.toast.warning("Revisa el formulario",10000)
+      this.toast.warning("Revisa el formulario", 10000)
 
-     /* Swal.fire({
-        title: 'Custom animation with Animate.css',
-        showClass: {
-          popup: 'animate__animated animate__fadeInDown'
-        },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOutUp'
-        }
-      })*/
+      /* Swal.fire({
+         title: 'Custom animation with Animate.css',
+         showClass: {
+           popup: 'animate__animated animate__fadeInDown'
+         },
+         hideClass: {
+           popup: 'animate__animated animate__fadeOutUp'
+         }
+       })*/
       return;
     }
 

@@ -15,6 +15,7 @@ export class LoginService {
 
   private token: string | null = null
   private logged = false;
+  private admin = false;
   private usuario: UsuarioToken | null = null
 
   constructor(private http: HttpClient, private toast: ToastService, private spinner: NgxSpinnerService) {
@@ -23,6 +24,8 @@ export class LoginService {
       this.token = token
       this.logged = true
       this.decodeToken()
+      if (this.usuario?.role === 0)
+        this.admin = true
     }
   }
 
@@ -38,26 +41,30 @@ export class LoginService {
     return this.usuario
   }
 
+  isAdmin() {
+    return this.admin
+  }
+
   login(usuario: UsuarioLogin) {
-/*
-    let obvs = of(1, 2, 3, 4, 5, 6) //ES COMO SI EL SERVER (BACKEND) ME DEVOLVIESE ESTOS 6 NÚMEROS
-    obvs.pipe(
-      tap(num => {
-        console.log("TAP NUM:" + num);
-      }), //SOLO LO UTILIZAMOS PARA MOSTRAR DATOS
-      filter(num => num > 5),
-      take(2),
+    /*
+        let obvs = of(1, 2, 3, 4, 5, 6) //ES COMO SI EL SERVER (BACKEND) ME DEVOLVIESE ESTOS 6 NÚMEROS
+        obvs.pipe(
+          tap(num => {
+            console.log("TAP NUM:" + num);
+          }), //SOLO LO UTILIZAMOS PARA MOSTRAR DATOS
+          filter(num => num > 5),
+          take(2),
 
-      map(num => "Número recibido: " + num),
-      finalize(() => {
-        console.log("Se han recibido todos los datos");
-      })
-    )
-      .subscribe((data) => {
-        console.log(data);
-      })
+          map(num => "Número recibido: " + num),
+          finalize(() => {
+            console.log("Se han recibido todos los datos");
+          })
+        )
+          .subscribe((data) => {
+            console.log(data);
+          })
 
-    this.spinner.hide();*/
+        this.spinner.hide();*/
     this.http.post<UsuarioLogueado>(`${environment.backend}/login`, usuario)
       .pipe(first())
       .subscribe((data: UsuarioLogueado) => {
@@ -65,6 +72,8 @@ export class LoginService {
         localStorage.setItem("token", this.token)
         this.logged = true;
         this.decodeToken()
+        if (this.usuario?.role === 0)
+          this.admin = true
         this.toast.success("Has iniciado sesión con éxito")
       })
 
@@ -73,6 +82,7 @@ export class LoginService {
   cerrarSesion() {
     this.token = null;
     this.logged = false;
+    this.admin = false
     localStorage.removeItem("token")
     this.toast.info("Has cerrado sesión con éxito")
   }

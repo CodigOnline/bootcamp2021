@@ -1,3 +1,8 @@
+<div class="row mb-2" *ngIf="isAdmin()">
+  <div class="d-grid d-md-flex justify-content-md-end">
+    <button class="btn btn-outline-primary" type="button">Añadir Producto</button>
+  </div>
+</div>
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-5" [@ngForAnimation]="articulos.length">
   <div class="col mb-2" *ngFor="let articulo of articulos">
     <div class="card h-100">
@@ -7,6 +12,26 @@
         <p class="card-text">{{articulo.descripcion}}</p>
         <a href="#" class="card-link" *ngIf="articulo.stock>0">Añadir al carrito</a>
         <a href="#" class="card-link">Compartir</a>
+      </div>
+      <div class="card-footer" *ngIf="isAdmin()">
+        <div class="row">
+          <div class="col-6">
+            <div class="d-grid">
+              <button class="btn btn-outline-success">
+                <fa-icon [icon]="editar"></fa-icon>
+              </button>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="d-grid">
+              <button class="btn btn-outline-danger">
+                <fa-icon [icon]="faTrash"></fa-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </div>
   </div>

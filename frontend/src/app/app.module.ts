@@ -16,6 +16,8 @@ import {NgxSpinnerModule} from "ngx-spinner";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {LoadingInterceptorService} from "./interceptors/loading.interceptor.service";
 import {ErrorsInterceptorService} from "./interceptors/errors.interceptor.service";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {TokenInterceptorService} from "./interceptors/token-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import {ErrorsInterceptorService} from "./interceptors/errors.interceptor.servic
     HttpClientModule,
     SweetAlert2Module.forRoot(),
     NgxSpinnerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FontAwesomeModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
@@ -47,6 +50,10 @@ import {ErrorsInterceptorService} from "./interceptors/errors.interceptor.servic
     }, {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorsInterceptorService,
+      multi: true
+    }, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
       multi: true
     }
   ],
