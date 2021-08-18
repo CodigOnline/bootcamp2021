@@ -20,17 +20,17 @@
     <div class="col-6 col-md-4">
       <input type="email" id="input_email" class="form-control" aria-describedby="EmailHelpInline" [autofocus]="false"
              formControlName="email">
-      <div *ngIf="form('email').errors && (form('email').touched || form('email').dirty)" class="invalid">
-        <!--{{JSON.stringify(form('nombre').errors)}}-->
+      <div *ngIf="formUtils.get('email').errors && (formUtils.get('email').touched || formUtils.get('email').dirty)" class="invalid">
+        <!--{{JSON.stringify(formUtils.get('nombre').errors)}}-->
         <!-- El interrogante determina si algo es o no es nullo, en caso de ser nullo lo ignora en caso de no serlo continua-->
-        <div *ngIf="form('email').errors?.required">
+        <div *ngIf="formUtils.get('email').errors?.required">
           El campo es requerido
         </div>
         <!--<div *ngIf="formulario.get('nombre')?.errors?.minlength">
           La longitud debe de ser de {{formulario.get('nombre')?.errors?.minlength.requiredLength}} caracteres.
           {{formulario.get('nombre')?.errors?.minlength.requiredLength - formulario.get('nombre')?.errors?.minlength.actualLength}} restantes
         </div>-->
-        <div *ngIf="form('email').errors?.pattern">
+        <div *ngIf="formUtils.get('email').errors?.pattern">
           El email no cumple con las características
         </div>
       </div>
@@ -45,18 +45,18 @@
     <div class="col-6 col-md-4">
       <input type="password" id="input_password" class="form-control" aria-describedby="passwordHelpInline"
              formControlName="password">
-      <div *ngIf="form('password').errors && (form('password').touched || form('password').dirty)" class="invalid">
-        <!--{{JSON.stringify(form('nombre').errors)}}-->
+      <div *ngIf="formUtils.get('password').errors && (formUtils.get('password').touched || formUtils.get('password').dirty)" class="invalid">
+        <!--{{JSON.stringify(formUtils.get('nombre').errors)}}-->
         <!-- El interrogante determina si algo es o no es nullo, en caso de ser nullo lo ignora en caso de no serlo continua-->
-        <div *ngIf="form('password').errors?.required">
+        <div *ngIf="formUtils.get('password').errors?.required">
           El campo es requerido
         </div>
         <!--<div *ngIf="formulario.get('nombre')?.errors?.minlength">
           La longitud debe de ser de {{formulario.get('nombre')?.errors?.minlength.requiredLength}} caracteres.
           {{formulario.get('nombre')?.errors?.minlength.requiredLength - formulario.get('nombre')?.errors?.minlength.actualLength}} restantes
         </div>-->
-        <div *ngIf="form('password').errors?.minlength">
-          {{fieldLength('password')}}
+        <div *ngIf="formUtils.get('password').errors?.minlength">
+          {{formUtils.fieldLength('password')}}
         </div>
       </div>
     </div>

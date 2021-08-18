@@ -65,7 +65,7 @@ export class LoginService {
           })
 
         this.spinner.hide();*/
-    this.http.post<UsuarioLogueado>(`${environment.backend}/login`, usuario)
+    this.http.post<UsuarioLogueado>(`login`, usuario)
       .pipe(first())
       .subscribe((data: UsuarioLogueado) => {
         this.token = data.token

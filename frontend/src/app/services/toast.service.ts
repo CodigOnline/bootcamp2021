@@ -14,6 +14,7 @@ export class ToastService {
     didOpen: (toast) => {
       toast.addEventListener('mouseenter', Swal.stopTimer)
       toast.addEventListener('mouseleave', Swal.resumeTimer)
+      toast.addEventListener('click', Swal.clickConfirm)
     }
   })
 

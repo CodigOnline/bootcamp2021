@@ -18,6 +18,7 @@ import {faUser} from "@fortawesome/free-regular-svg-icons";
 import {faAt} from "@fortawesome/free-solid-svg-icons";
 import {faKey} from "@fortawesome/free-solid-svg-icons";
 import {faUserCircle} from "@fortawesome/free-solid-svg-icons";
+import {FormUtils} from "../../../utils/FormUtils";
 
 @Component({
   selector: 'app-registro',
@@ -31,6 +32,7 @@ export class RegistroComponent implements OnInit {
   faKey = faKey
   faUserCircle = faUserCircle
   formulario: FormGroup
+  formUtils = new FormUtils()
 
   // FormBuilder
   /**SINGLETON
@@ -77,6 +79,7 @@ export class RegistroComponent implements OnInit {
         confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
       }, {validator: this.matchPassword} as AbstractControlOptions
     )
+    this.formUtils.formulario = this.formulario
   }
 
   private matchPassword(control: AbstractControl) {
@@ -136,23 +139,6 @@ export class RegistroComponent implements OnInit {
     this.registroService.registrar(registro)
 
 
-  }
-
-  public form(campo: string): AbstractControl {
-    return this.formulario.get(campo)!
-  }
-
-  private fieldRequiredLength(campo: string): number {
-    return this.formulario.get(campo)!.errors!.minlength.requiredLength
-  }
-
-  private fieldActualLength(campo: string): number {
-    return this.formulario.get(campo)!.errors!.minlength.actualLength
-  }
-
-  public fieldLength(campo: string): string {
-    return `La longitud del ${campo} debe ser de ${this.fieldRequiredLength(campo)} caracteres.
-    ${this.fieldRequiredLength(campo) - this.fieldActualLength(campo)} restantes`
   }
 }
 

@@ -5,10 +5,12 @@ import {OpinionesComponent} from "./components/navbar/opiniones/opiniones.compon
 import {TestComponent} from "./components/navbar/test/test.component";
 import {RegistroComponent} from "./components/navbar/registro/registro.component";
 import {LoginComponent} from "./components/navbar/login/login.component";
+import {ArticuloFormComponent} from "./components/navbar/articulos/articulo-form/articulo-form.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'articulos', component: ArticulosComponent},
+  {path: 'articulos/formulario', component: ArticuloFormComponent},
   {path: 'opiniones', component: OpinionesComponent},
   {path: 'registro', component: RegistroComponent},
   {path: 'login', component: LoginComponent},

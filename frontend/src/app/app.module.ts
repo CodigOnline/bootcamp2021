@@ -18,6 +18,8 @@ import {LoadingInterceptorService} from "./interceptors/loading.interceptor.serv
 import {ErrorsInterceptorService} from "./interceptors/errors.interceptor.service";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {TokenInterceptorService} from "./interceptors/token-interceptor.service";
+import {BaseUrlInterceptorService} from "./interceptors/base-url-interceptor.service";
+import { ArticuloFormComponent } from './components/navbar/articulos/articulo-form/articulo-form.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import {TokenInterceptorService} from "./interceptors/token-interceptor.service"
     TestComponent,
     NavbarComponent,
     RegistroComponent,
-    LoginComponent
+    LoginComponent,
+    ArticuloFormComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +57,10 @@ import {TokenInterceptorService} from "./interceptors/token-interceptor.service"
     }, {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
+      multi: true
+    }, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BaseUrlInterceptorService,
       multi: true
     }
   ],

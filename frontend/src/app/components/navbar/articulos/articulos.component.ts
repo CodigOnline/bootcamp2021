@@ -28,7 +28,7 @@ import {faTrashAlt} from "@fortawesome/free-regular-svg-icons";
 
 export class ArticulosComponent implements OnInit {
   editar = faEdit;
-  faTrash= faTrashAlt
+  faTrash = faTrashAlt
 
   articulos: ArticuloModel[] = []
 
@@ -46,5 +46,10 @@ export class ArticulosComponent implements OnInit {
 
   isAdmin() {
     return this.loginService.isAdmin();
+  }
+
+  remove(id: number) {
+    console.log("Has clicado el boton eliminar para el id: " + id);
+    this.articuloService.delete(id)
   }
 }

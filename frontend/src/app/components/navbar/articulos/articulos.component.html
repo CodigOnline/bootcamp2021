@@ -1,6 +1,8 @@
 <div class="row mb-2" *ngIf="isAdmin()">
   <div class="d-grid d-md-flex justify-content-md-end">
-    <button class="btn btn-outline-primary" type="button">Añadir Producto</button>
+    <button class="btn btn-outline-primary" type="button" [routerLink]="['formulario']">Añadir Producto</button>
+    <!--<button class="btn btn-outline-primary" type="button" [routerLink]="['./formulario']">Añadir Producto</button>-->
+    <!--<button class="btn btn-outline-primary" type="button" [routerLink]="['/articulos/formulario']">Añadir Producto</button>-->
   </div>
 </div>
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-5" [@ngForAnimation]="articulos.length">
@@ -24,7 +26,7 @@
           </div>
           <div class="col-6">
             <div class="d-grid">
-              <button class="btn btn-outline-danger">
+              <button class="btn btn-outline-danger" (click)="remove(articulo.id!)">
                 <fa-icon [icon]="faTrash"></fa-icon>
               </button>
             </div>

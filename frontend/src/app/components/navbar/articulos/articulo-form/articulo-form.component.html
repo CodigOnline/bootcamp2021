@@ -1,0 +1,300 @@
+<div class="row">
+  <div class="col-1">COL-1</div>
+  <div class="col-1">COL-2</div>
+  <div class="col-1">COL-3</div>
+  <div class="col-1">COL-4</div>
+  <div class="col-1">COL-5</div>
+  <div class="col-1">COL-6</div>
+  <div class="col-1">COL-7</div>
+  <div class="col-1">COL-8</div>
+  <div class="col-1">COL-9</div>
+  <div class="col-1">COL-10</div>
+  <div class="col-1">COL-11</div>
+  <div class="col-1">COL-12</div>
+</div>
+<form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
+
+
+
+
+
+
+  <div class="row g-3 align-items-center mb-3">
+    <div class="col-2 offset-2  col-md-1 offset-md-3">
+      <label for="input_nombre" class="col-form-label">Nombre</label>
+    </div>
+    <div class="col-6 col-md-4">
+      <input type="text" id="input_nombre" class="form-control" aria-describedby="nombreHelpInline" [autofocus]="false"
+             formControlName="nombre">
+      <div *ngIf="formUtils.get('nombre').errors && (formUtils.get('nombre').touched || formUtils.get('nombre').dirty)" class="invalid">
+        <!--{{JSON.stringify(formUtils.get('nombre').errors)}}-->
+        <!-- El interrogante determina si algo es o no es nullo, en caso de ser nullo lo ignora en caso de no serlo continua-->
+        <div *ngIf="formUtils.get('nombre').errors?.required">
+          El campo es requerido
+        </div>
+        <!--<div *ngIf="formulario.get('nombre')?.errors?.minlength">
+          La longitud debe de ser de {{formulario.get('nombre')?.errors?.minlength.requiredLength}} caracteres.
+          {{formulario.get('nombre')?.errors?.minlength.requiredLength - formulario.get('nombre')?.errors?.minlength.actualLength}} restantes
+        </div>-->
+        <div *ngIf="formUtils.get('nombre').errors?.pattern">
+          El nombre no cumple con las características
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="row g-3 align-items-center mb-3">
+    <div class="col-2 offset-2  col-md-1 offset-md-3">
+      <label for="input_descripcion" class="col-form-label">descripcion</label>
+    </div>
+    <div class="col-6 col-md-4">
+      <input type="text" id="input_descripcion" class="form-control" aria-describedby="descripcionHelpInline" [autofocus]="false"
+             formControlName="descripcion">
+      <div *ngIf="formUtils.get('descripcion').errors && (formUtils.get('descripcion').touched || formUtils.get('descripcion').dirty)" class="invalid">
+        <!--{{JSON.stringify(formUtils.get('descripcion').errors)}}-->
+        <!-- El interrogante determina si algo es o no es nullo, en caso de ser nullo lo ignora en caso de no serlo continua-->
+        <div *ngIf="formUtils.get('descripcion').errors?.required">
+          El campo es requerido
+        </div>
+        <!--<div *ngIf="formulario.get('descripcion')?.errors?.minlength">
+          La longitud debe de ser de {{formulario.get('descripcion')?.errors?.minlength.requiredLength}} caracteres.
+          {{formulario.get('descripcion')?.errors?.minlength.requiredLength - formulario.get('descripcion')?.errors?.minlength.actualLength}} restantes
+        </div>-->
+        <div *ngIf="formUtils.get('descripcion').errors?.pattern">
+          El descripcion no cumple con las características
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="row g-3 align-items-center mb-3">
+    <div class="col-2 offset-2  col-md-1 offset-md-3">
+      <label for="input_stock" class="col-form-label">stock</label>
+    </div>
+    <div class="col-6 col-md-4">
+      <input type="number" id="input_stock" class="form-control" aria-describedby="stockHelpInline" [autofocus]="false"
+             formControlName="stock">
+      <div *ngIf="formUtils.get('stock').errors && (formUtils.get('stock').touched || formUtils.get('stock').dirty)" class="invalid">
+        <!--{{JSON.stringify(formUtils.get('stock').errors)}}-->
+        <!-- El interrogante determina si algo es o no es nullo, en caso de ser nullo lo ignora en caso de no serlo continua-->
+        <div *ngIf="formUtils.get('stock').errors?.required">
+          El campo es requerido
+        </div>
+        <!--<div *ngIf="formulario.get('stock')?.errors?.minlength">
+          La longitud debe de ser de {{formulario.get('stock')?.errors?.minlength.requiredLength}} caracteres.
+          {{formulario.get('stock')?.errors?.minlength.requiredLength - formulario.get('stock')?.errors?.minlength.actualLength}} restantes
+        </div>-->
+        <div *ngIf="formUtils.get('stock').errors?.pattern">
+          El stock no cumple con las características
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="row g-3 align-items-center mb-3">
+    <div class="col-2 offset-2  col-md-1 offset-md-3">
+      <label for="input_observaciones" class="col-form-label">observaciones</label>
+    </div>
+    <div class="col-6 col-md-4">
+      <input type="text" id="input_observaciones" class="form-control" aria-describedby="observacionesHelpInline" [autofocus]="false"
+             formControlName="observaciones">
+      <div *ngIf="formUtils.get('observaciones').errors && (formUtils.get('observaciones').touched || formUtils.get('observaciones').dirty)" class="invalid">
+        <!--{{JSON.stringify(formUtils.get('observaciones').errors)}}-->
+        <!-- El interrogante determina si algo es o no es nullo, en caso de ser nullo lo ignora en caso de no serlo continua-->
+        <div *ngIf="formUtils.get('observaciones').errors?.required">
+          El campo es requerido
+        </div>
+        <!--<div *ngIf="formulario.get('observaciones')?.errors?.minlength">
+          La longitud debe de ser de {{formulario.get('observaciones')?.errors?.minlength.requiredLength}} caracteres.
+          {{formulario.get('observaciones')?.errors?.minlength.requiredLength - formulario.get('observaciones')?.errors?.minlength.actualLength}} restantes
+        </div>-->
+        <div *ngIf="formUtils.get('observaciones').errors?.pattern">
+          El observaciones no cumple con las características
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="row g-3 align-items-center mb-3">
+    <div class="col-2 offset-2  col-md-1 offset-md-3">
+      <label for="input_referencia" class="col-form-label">referencia</label>
+    </div>
+    <div class="col-6 col-md-4">
+      <input type="text" id="input_referencia" class="form-control" aria-describedby="referenciaHelpInline" [autofocus]="false"
+             formControlName="referencia">
+      <div *ngIf="formUtils.get('referencia').errors && (formUtils.get('referencia').touched || formUtils.get('referencia').dirty)" class="invalid">
+        <!--{{JSON.stringify(formUtils.get('referencia').errors)}}-->
+        <!-- El interrogante determina si algo es o no es nullo, en caso de ser nullo lo ignora en caso de no serlo continua-->
+        <div *ngIf="formUtils.get('referencia').errors?.required">
+          El campo es requerido
+        </div>
+        <!--<div *ngIf="formulario.get('referencia')?.errors?.minlength">
+          La longitud debe de ser de {{formulario.get('referencia')?.errors?.minlength.requiredLength}} caracteres.
+          {{formulario.get('referencia')?.errors?.minlength.requiredLength - formulario.get('referencia')?.errors?.minlength.actualLength}} restantes
+        </div>-->
+        <div *ngIf="formUtils.get('referencia').errors?.pattern">
+          El referencia no cumple con las características
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="row g-3 align-items-center mb-3">
+    <div class="col-2 offset-2  col-md-1 offset-md-3">
+      <label for="input_precio" class="col-form-label">precio</label>
+    </div>
+    <div class="col-6 col-md-4">
+      <input type="number" id="input_precio" class="form-control" aria-describedby="precioHelpInline" [autofocus]="false"
+             formControlName="precio">
+      <div *ngIf="formUtils.get('precio').errors && (formUtils.get('precio').touched || formUtils.get('precio').dirty)" class="invalid">
+        <!--{{JSON.stringify(formUtils.get('precio').errors)}}-->
+        <!-- El interrogante determina si algo es o no es nullo, en caso de ser nullo lo ignora en caso de no serlo continua-->
+        <div *ngIf="formUtils.get('precio').errors?.required">
+          El campo es requerido
+        </div>
+        <!--<div *ngIf="formulario.get('precio')?.errors?.minlength">
+          La longitud debe de ser de {{formulario.get('precio')?.errors?.minlength.requiredLength}} caracteres.
+          {{formulario.get('precio')?.errors?.minlength.requiredLength - formulario.get('precio')?.errors?.minlength.actualLength}} restantes
+        </div>-->
+        <div *ngIf="formUtils.get('precio').errors?.pattern">
+          El precio no cumple con las características
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="row g-3 align-items-center mb-3">
+    <div class="col-2 offset-2  col-md-1 offset-md-3">
+      <label for="input_categoria" class="col-form-label">categoria</label>
+    </div>
+    <div class="col-6 col-md-4">
+      <input type="text" id="input_categoria" class="form-control" aria-describedby="categoriaHelpInline" [autofocus]="false"
+             formControlName="categoria">
+      <div *ngIf="formUtils.get('categoria').errors && (formUtils.get('categoria').touched || formUtils.get('categoria').dirty)" class="invalid">
+        <!--{{JSON.stringify(formUtils.get('categoria').errors)}}-->
+        <!-- El interrogante determina si algo es o no es nullo, en caso de ser nullo lo ignora en caso de no serlo continua-->
+        <div *ngIf="formUtils.get('categoria').errors?.required">
+          El campo es requerido
+        </div>
+        <!--<div *ngIf="formulario.get('categoria')?.errors?.minlength">
+          La longitud debe de ser de {{formulario.get('categoria')?.errors?.minlength.requiredLength}} caracteres.
+          {{formulario.get('categoria')?.errors?.minlength.requiredLength - formulario.get('categoria')?.errors?.minlength.actualLength}} restantes
+        </div>-->
+        <div *ngIf="formUtils.get('categoria').errors?.pattern">
+          El categoria no cumple con las características
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="row g-3 align-items-center mb-3">
+    <div class="col-2 offset-2  col-md-1 offset-md-3">
+      <label for="input_peso" class="col-form-label">peso</label>
+    </div>
+    <div class="col-6 col-md-4">
+      <input type="number" id="input_peso" class="form-control" aria-describedby="pesoHelpInline" [autofocus]="false"
+             formControlName="peso">
+      <div *ngIf="formUtils.get('peso').errors && (formUtils.get('peso').touched || formUtils.get('peso').dirty)" class="invalid">
+        <!--{{JSON.stringify(formUtils.get('peso').errors)}}-->
+        <!-- El interrogante determina si algo es o no es nullo, en caso de ser nullo lo ignora en caso de no serlo continua-->
+        <div *ngIf="formUtils.get('peso').errors?.required">
+          El campo es requerido
+        </div>
+        <!--<div *ngIf="formulario.get('peso')?.errors?.minlength">
+          La longitud debe de ser de {{formulario.get('peso')?.errors?.minlength.requiredLength}} caracteres.
+          {{formulario.get('peso')?.errors?.minlength.requiredLength - formulario.get('peso')?.errors?.minlength.actualLength}} restantes
+        </div>-->
+        <div *ngIf="formUtils.get('peso').errors?.pattern">
+          El peso no cumple con las características
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="row g-3 align-items-center mb-3">
+    <div class="col-2 offset-2  col-md-1 offset-md-3">
+      <label for="input_consumible" class="col-form-label">consumible</label>
+    </div>
+    <div class="col-6 col-md-4">
+      <input type="checkbox" id="input_consumible" class="" aria-describedby="consumibleHelpInline" [autofocus]="false"
+             formControlName="consumible">
+      <div *ngIf="formUtils.get('consumible').errors && (formUtils.get('consumible').touched || formUtils.get('consumible').dirty)" class="invalid">
+        <!--{{JSON.stringify(formUtils.get('consumible').errors)}}-->
+        <!-- El interrogante determina si algo es o no es nullo, en caso de ser nullo lo ignora en caso de no serlo continua-->
+        <div *ngIf="formUtils.get('consumible').errors?.required">
+          El campo es requerido
+        </div>
+        <!--<div *ngIf="formulario.get('consumible')?.errors?.minlength">
+          La longitud debe de ser de {{formulario.get('consumible')?.errors?.minlength.requiredLength}} caracteres.
+          {{formulario.get('consumible')?.errors?.minlength.requiredLength - formulario.get('consumible')?.errors?.minlength.actualLength}} restantes
+        </div>-->
+        <div *ngIf="formUtils.get('consumible').errors?.pattern">
+          El consumible no cumple con las características
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="row g-3 align-items-center mb-3">
+    <div class="col-2 offset-2  col-md-1 offset-md-3">
+      <label for="input_foto" class="col-form-label">foto</label>
+    </div>
+    <div class="col-6 col-md-4">
+      <input type="text" id="input_foto" class="form-control" aria-describedby="fotoHelpInline" [autofocus]="false"
+             formControlName="foto">
+      <div *ngIf="formUtils.get('foto').errors && (formUtils.get('foto').touched || formUtils.get('foto').dirty)" class="invalid">
+        <!--{{JSON.stringify(formUtils.get('foto').errors)}}-->
+        <!-- El interrogante determina si algo es o no es nullo, en caso de ser nullo lo ignora en caso de no serlo continua-->
+        <div *ngIf="formUtils.get('foto').errors?.required">
+          El campo es requerido
+        </div>
+        <!--<div *ngIf="formulario.get('foto')?.errors?.minlength">
+          La longitud debe de ser de {{formulario.get('foto')?.errors?.minlength.requiredLength}} caracteres.
+          {{formulario.get('foto')?.errors?.minlength.requiredLength - formulario.get('foto')?.errors?.minlength.actualLength}} restantes
+        </div>-->
+        <div *ngIf="formUtils.get('foto').errors?.pattern">
+          El foto no cumple con las características
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="offset-8 offset-md-6 col-2">
+    <div class="d-grid">
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </div>
+</form>
+
+<!-- GRUPOS DE ELEMENTOS RELACIONADOS ENTRE ELLOS
+-DIRECCIONES
+-PASSWORDS
+-->

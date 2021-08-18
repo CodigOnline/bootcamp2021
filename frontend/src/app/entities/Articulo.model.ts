@@ -1,5 +1,5 @@
 export interface ArticuloModel {
-  id: number,
+  id?: number,
   nombre: string,
   descripcion: string,
   stock: number,
@@ -14,4 +14,8 @@ export interface ArticuloModel {
 
 export interface ArticuloModelResponse {
   articulos: ArticuloModel[]
+}
+
+export interface DeleteArticuloResponse {
+  msg: string
 }

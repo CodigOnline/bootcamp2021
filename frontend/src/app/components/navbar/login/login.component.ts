@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {HttpClient} from "@angular/common/http";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+
 import {LoginService} from "../../../services/login.service";
 import {UsuarioLogin} from "../../../entities/Login.model";
 import {ToastService} from "../../../services/toast.service";
-import {NgxSpinnerService} from "ngx-spinner";
+import {FormUtils} from "../../../utils/FormUtils";
 
 @Component({
   selector: 'app-login',
@@ -14,6 +14,7 @@ import {NgxSpinnerService} from "ngx-spinner";
 export class LoginComponent implements OnInit {
 
   formulario: FormGroup
+  formUtils = new FormUtils()
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,37 +30,21 @@ export class LoginComponent implements OnInit {
         password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       }
     )
+    this.formUtils.formulario = this.formulario
   }
 
   public enviarFormulario() {
-    /*this.formulario.markAllAsTouched()
+    this.formulario.markAllAsTouched()
 
     if (this.formulario.invalid) {
       this.toast.warning('Revisa el formulario', 10000)
       return;
-    }*/
+    }
     const usuario: UsuarioLogin = {
-      email: this.form("email").value,
-      password: this.form("password").value
+      email: this.formUtils.get("email").value,
+      password: this.formUtils.get("password").value
     }
     this.loginService.login(usuario)
-  }
-
-  public form(campo: string): AbstractControl {
-    return this.formulario.get(campo)!
-  }
-
-  private fieldRequiredLength(campo: string): number {
-    return this.formulario.get(campo)!.errors!.minlength.requiredLength
-  }
-
-  private fieldActualLength(campo: string): number {
-    return this.formulario.get(campo)!.errors!.minlength.actualLength
-  }
-
-  public fieldLength(campo: string): string {
-    return `La longitud del ${campo} debe ser de ${this.fieldRequiredLength(campo)} caracteres.
-    ${this.fieldRequiredLength(campo) - this.fieldActualLength(campo)} restantes`
   }
 
 }
