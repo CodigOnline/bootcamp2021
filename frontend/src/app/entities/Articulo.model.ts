@@ -12,8 +12,13 @@ export interface ArticuloModel {
   foto: string
 }
 
-export interface ArticuloModelResponse {
+export interface ArticulosModelResponse {
   articulos: ArticuloModel[]
+}
+
+export interface ArticuloModelResponse {
+  articulo: ArticuloModel,
+  msg: string
 }
 
 export interface DeleteArticuloResponse {

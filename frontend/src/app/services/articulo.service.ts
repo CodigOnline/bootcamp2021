@@ -1,9 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
 import {first} from "rxjs/operators";
-import {ArticuloModel, ArticuloModelResponse, DeleteArticuloResponse} from "../entities/Articulo.model";
-import {BehaviorSubject, Subject} from "rxjs";
+import {
+  ArticuloModel,
+  ArticuloModelResponse,
+  ArticulosModelResponse,
+  DeleteArticuloResponse
+} from "../entities/Articulo.model";
+import {BehaviorSubject} from "rxjs";
 import {ToastService} from "./toast.service";
 
 @Injectable({
@@ -27,7 +31,7 @@ export class ArticuloService {
   }
 
   private findAll() { //PETICIONES ASYNCRONAS
-    this.http.get<ArticuloModelResponse>(`articulos`)
+    this.http.get<ArticulosModelResponse>(`articulos`)
       .pipe(first())
       .subscribe(data => {
         console.log(data);
@@ -40,10 +44,17 @@ export class ArticuloService {
   }
 
   //PETICIONES PARA ADMINS!!
-  save() {
+  save(articulo: ArticuloModel) {
+    this.http.post<ArticuloModelResponse>('articulos', articulo) //peticion post sirve para crear algo //articulos--> http://localhost:3000/articulos
+      .pipe(first())
+      .subscribe((data) => {
+        this.toast.success(data.msg)
+        this.articulos.value.push(data.articulo)
+        this.articulos.next(this.articulos.value)
+      })
   }
 
-  update() {
+  update(articulo: ArticuloModel) {
   }
 
   delete(id: number) {
@@ -53,7 +64,7 @@ export class ArticuloService {
         this.toast.success(data.msg)
 
 
-        const articulosFiltrados = this.articulos.value.filter(articulo=>articulo.id!==id) //ELIMINADO EL ARTICULO DE LA LISTA
+        const articulosFiltrados = this.articulos.value.filter(articulo => articulo.id !== id) //ELIMINADO EL ARTICULO DE LA LISTA
         console.log(articulosFiltrados);
         this.articulos.next(articulosFiltrados) //PARTE MÁS IMPORTANTE
       })

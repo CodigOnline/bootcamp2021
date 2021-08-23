@@ -1,6 +1,6 @@
 <div class="row mb-2" *ngIf="isAdmin()">
   <div class="d-grid d-md-flex justify-content-md-end">
-    <button class="btn btn-outline-primary" type="button" [routerLink]="['formulario']">Añadir Producto</button>
+    <button class="btn btn-outline-primary" type="button" (click)="openDialog()">Añadir Producto</button>
     <!--<button class="btn btn-outline-primary" type="button" [routerLink]="['./formulario']">Añadir Producto</button>-->
     <!--<button class="btn btn-outline-primary" type="button" [routerLink]="['/articulos/formulario']">Añadir Producto</button>-->
   </div>
@@ -19,7 +19,7 @@
         <div class="row">
           <div class="col-6">
             <div class="d-grid">
-              <button class="btn btn-outline-success">
+              <button class="btn btn-outline-success" (click)="openDialog(articulo)">
                 <fa-icon [icon]="editar"></fa-icon>
               </button>
             </div>

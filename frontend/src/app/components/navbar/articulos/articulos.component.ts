@@ -6,6 +6,8 @@ import {ArticuloModel} from "../../../entities/Articulo.model";
 import {LoginService} from "../../../services/login.service";
 import {faEdit} from "@fortawesome/free-regular-svg-icons";
 import {faTrashAlt} from "@fortawesome/free-regular-svg-icons";
+import {MatDialog} from "@angular/material/dialog";
+import {ArticuloFormComponent} from "./articulo-form/articulo-form.component";
 
 
 @Component({
@@ -33,7 +35,8 @@ export class ArticulosComponent implements OnInit {
   articulos: ArticuloModel[] = []
 
   constructor(private articuloService: ArticuloService,
-              private loginService: LoginService) {
+              private loginService: LoginService,
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -42,6 +45,24 @@ export class ArticulosComponent implements OnInit {
         console.log(data);
         this.articulos = data
       })
+  }
+
+  openDialog(articulo?: ArticuloModel) {
+    if (!articulo) {
+      articulo = {} as ArticuloModel
+    }
+    console.log(articulo);
+    const dialogRef = this.dialog.open(ArticuloFormComponent, {
+      data: {
+        articulo: articulo
+      },
+      width: '80%',
+      height: '80%'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   isAdmin() {

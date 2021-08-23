@@ -20,6 +20,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {TokenInterceptorService} from "./interceptors/token-interceptor.service";
 import {BaseUrlInterceptorService} from "./interceptors/base-url-interceptor.service";
 import { ArticuloFormComponent } from './components/navbar/articulos/articulo-form/articulo-form.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { ArticuloFormComponent } from './components/navbar/articulos/articulo-fo
     SweetAlert2Module.forRoot(),
     NgxSpinnerModule,
     BrowserAnimationsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
