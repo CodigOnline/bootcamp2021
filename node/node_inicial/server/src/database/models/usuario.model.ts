@@ -1,5 +1,6 @@
 import * as Sequelize from "sequelize";
 import {mysql} from "../mysql";
+import {Opinion} from "./opinion.model";
 
 export interface UsuarioModel extends Sequelize.Model {
     id: number;
@@ -72,3 +73,9 @@ export const Usuario = mysql.define<UsuarioModel, NewUsuarioModel>('usuarios', {
         allowNull: true
     }
 }, {underscored: true, timestamps: true})
+
+Usuario.hasOne(Opinion, {
+    onDelete: 'CASCADE',
+    foreignKey: 'id_usuario'
+})
+Opinion.belongsTo(Usuario, {foreignKey: 'id_usuario'})

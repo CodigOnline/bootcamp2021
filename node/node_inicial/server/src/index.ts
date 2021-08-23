@@ -2,10 +2,14 @@ import express from 'express'
 import UsuarioRouter from './routes/usuarios.routes';
 import ArticulosRouter from './routes/articulos.routes';
 import LoginRouter from './routes/login.routes';
+import OpinionesRouter from './routes/opiniones.routes';
 import config from './settings/config';
 import {mysql} from "./database/mysql";
 import morgan from 'morgan'
 import Log from "./settings/logger.winston";
+import {Usuario} from "./database/models/usuario.model";
+import {Articulo} from "./database/models/articulo.model";
+import {Opinion} from "./database/models/opinion.model";
 
 /*import {Usuario} from "./database/models/usuario.model";
 import {Articulo} from "./database/models/articulo.model";*/
@@ -43,6 +47,7 @@ class App {
         this.app.use('/login', LoginRouter)
         this.app.use('/usuarios', UsuarioRouter)
         this.app.use('/articulos', ArticulosRouter)
+        this.app.use('/opiniones', OpinionesRouter)
     }
 
     private init() {
@@ -57,10 +62,8 @@ class App {
             .then(() => {
                 Log.info("La base de datos está ONLINE")
                 // CRAR ALS TABLAS TABLSA Y INICIAR EL SERVER
-                mysql.sync().then(() => {
-                    console.log("Comprobación de tablas completada");
-                })
-                /*Usuario.sync()
+
+                Usuario.sync()
                     .then(() => {
                         console.log("Comprobación de Usuario correcta");
                     })
@@ -73,7 +76,13 @@ class App {
                     .catch((err: any) => {
                         console.log(`${err}`);
                         console.log("No se ha podido crear la tabla articulos");
-                    })*/
+                    })
+                Opinion.sync()//ELIMINA LA TABLA Y LUEGO LA CREA
+                    .then(() => console.log('Tabla Opiniones creada correctamente'))
+                    .catch((err: any) => {
+                        console.log(`${err}`);
+                        console.log("No se ha podido crear la tabla opiniones");
+                    })
                 this.app.listen(this.app.get('port'), () => {
                     Log.info(`Servidor iniciado en el puerto ${this.app.get('port')}`);
                 })

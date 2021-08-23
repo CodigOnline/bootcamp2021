@@ -26,25 +26,6 @@ export function checkIsAdmin(request: express.Request, response: express.Respons
                         return response.status(401).json({msg: 'Token invalido'})
                     }
                 }
-
-                /*if (usuario !== undefined) {
-                    //COMPROBAR EXPIRACIÓN DEL TOKEN
-                    const hoy = Math.round(new Date().getTime() / 1000)
-                    if (usuario.exp !== undefined) {
-                        if (hoy > usuario.exp) {
-                            return response.status(401).json({msg: "El token ha caducado"})
-                        }
-                        else{
-                           return next();
-                        }
-                    } else {
-                        console.log(`No existe fecha de expiración`);
-                        return response.status(401).json({msg: "Token invalido"})
-                    }
-                } else {
-                    console.log("Usuario undefined")
-                    return response.status(401).json({msg: "Token invalido"})
-                }*/
             })
 
 

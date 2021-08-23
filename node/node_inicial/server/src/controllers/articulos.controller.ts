@@ -6,7 +6,6 @@ import {ArticuloModel} from "../database/models/articulo.model";
 const articuloService = new ArticuloService();
 
 export function findAll(_: express.Request, response: express.Response) {
-
     articuloService.findAll()
         .then((articulos: ArticuloModel[]) => response.json({articulos}))
         .catch((err: Error) => {
@@ -82,7 +81,7 @@ export function remove(request: express.Request, response: express.Response) {
             if (filas===0){
                 return response.json({msg: `No se ha encontrado el artículo con el id ${id}`})
             }
-            return response.json({msg: `Articulos eliminados, ${filas} eliminadas`})
+            return response.json({msg: `Artículo con el id ${id} eliminado correctamente`})
         })
         .catch((err: Error) => {
             console.log(`No se han podido eliminar el articulo`);
