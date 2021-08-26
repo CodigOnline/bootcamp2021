@@ -22,6 +22,11 @@ import {BaseUrlInterceptorService} from "./interceptors/base-url-interceptor.ser
 import { ArticuloFormComponent } from './components/navbar/articulos/articulo-form/articulo-form.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
+import { ShareArticuloComponent } from './components/navbar/articulos/share/share-articulo.component';
+import {MatBottomSheetModule} from "@angular/material/bottom-sheet";
+import {MatListModule} from "@angular/material/list";
+import {MatLineModule} from "@angular/material/core";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -32,7 +37,8 @@ import {MatButtonModule} from "@angular/material/button";
     NavbarComponent,
     RegistroComponent,
     LoginComponent,
-    ArticuloFormComponent
+    ArticuloFormComponent,
+    ShareArticuloComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +52,11 @@ import {MatButtonModule} from "@angular/material/button";
     BrowserAnimationsModule,
     FontAwesomeModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatBottomSheetModule,
+    MatListModule,
+    MatLineModule,
+    MatTooltipModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

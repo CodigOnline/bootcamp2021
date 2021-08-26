@@ -8,7 +8,7 @@ import {LoginComponent} from "./components/navbar/login/login.component";
 import {ArticuloFormComponent} from "./components/navbar/articulos/articulo-form/articulo-form.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: '', redirectTo: 'articulos', pathMatch: 'full'},
   {path: 'articulos', component: ArticulosComponent},
   {path: 'articulos/formulario', component: ArticuloFormComponent},
   {path: 'opiniones', component: OpinionesComponent},

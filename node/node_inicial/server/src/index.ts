@@ -38,7 +38,7 @@ class App {
         this.app.use((_: express.Request, response: express.Response, next: express.NextFunction) => {
             response.header('Access-Control-Allow-Origin', 'http://localhost:4200')
             response.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-            response.header('Access-Control-Allow-Methods','GET, POST, PUT, DELETE')
+            response.header('Access-Control-Allow-Methods','GET, POST, PUT, DELETE, OPTIONS')
             next();
         })
     }

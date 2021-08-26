@@ -33,9 +33,9 @@ export function findOneById(request: express.Request, response: express.Response
 }
 
 export function save(request: express.Request, response: express.Response) {
-    const {nombre, descripcion, stock, referencia, precio, categoria, peso, foto} = request.body
-    articuloService.save(nombre, descripcion, stock, referencia, precio, categoria, peso, foto)
-        .then(() => response.json({msg: 'Articulo creado correctamente'}))
+    const {nombre, descripcion, stock, observaciones, referencia, precio, categoria, peso, foto} = request.body
+    articuloService.save(nombre, descripcion, stock, observaciones, referencia, precio, categoria, peso, foto)
+        .then((articulo: ArticuloModel) => response.json({articulo, msg: 'Articulo creado correctamente'}))
         .catch((err: Error) => {
             console.log(`No se han podido insertar el articulo`);
             console.log(err);
@@ -45,11 +45,11 @@ export function save(request: express.Request, response: express.Response) {
 
 export function update(request: express.Request, response: express.Response) {
     const id = request.params.id
-    const {nombre, descripcion, stock, referencia, precio, categoria, peso, foto} = request.body
-    articuloService.update(Number(id), nombre, descripcion, stock, referencia, precio, categoria, peso, foto)
+    const {nombre, descripcion, stock, observaciones, referencia, precio, categoria, peso, foto} = request.body
+    articuloService.update(Number(id), nombre, descripcion, stock, observaciones, referencia, precio, categoria, peso, foto)
         .then((data: [number, any]) => {
             const [filas,] = data;
-            if (filas===0){
+            if (filas === 0) {
                 return response.json({msg: `No se ha encontrado el artículo con el id ${id}`})
             }
             return response.json({msg: 'Articulo actualizado correctamente'})
@@ -77,8 +77,8 @@ export function update(request: express.Request, response: express.Response) {
 export function remove(request: express.Request, response: express.Response) {
     const id = request.params.id
     articuloService.remove(Number(id))
-        .then((filas:number)=> {
-            if (filas===0){
+        .then((filas: number) => {
+            if (filas === 0) {
                 return response.json({msg: `No se ha encontrado el artículo con el id ${id}`})
             }
             return response.json({msg: `Artículo con el id ${id} eliminado correctamente`})

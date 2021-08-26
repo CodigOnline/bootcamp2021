@@ -15,3 +15,12 @@ a{
 }
 
 html, body { height: 100%; }
+
+
+.invalid{
+  border: 1px solid red;
+  color:red;
+  border-radius: 5px;
+  margin-top: 2px;
+  padding: 5px;
+}

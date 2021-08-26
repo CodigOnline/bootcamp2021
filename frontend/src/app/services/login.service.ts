@@ -7,6 +7,7 @@ import jwtDecode from 'jwt-decode'
 import {UsuarioToken} from "../entities/Usuario.model";
 import {NgxSpinnerService} from "ngx-spinner";
 import {environment} from "../../environments/environment";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,9 @@ export class LoginService {
   private admin = false;
   private usuario: UsuarioToken | null = null
 
-  constructor(private http: HttpClient, private toast: ToastService, private spinner: NgxSpinnerService) {
+  constructor(private http: HttpClient,
+              private toast: ToastService,
+              private router: Router) {
     const token = localStorage.getItem("token")
     if (token !== null) {
       this.token = token
@@ -75,6 +78,8 @@ export class LoginService {
         if (this.usuario?.role === 0)
           this.admin = true
         this.toast.success("Has iniciado sesión con éxito")
+        //NOS CAMBIE LA PANTALLA A ARTÍCULOS
+        this.router.navigate(['/articulos'])
       })
 
   }
@@ -85,6 +90,8 @@ export class LoginService {
     this.admin = false
     localStorage.removeItem("token")
     this.toast.info("Has cerrado sesión con éxito")
+    //NOS CAMBIE LA PANTALLA A ARTÍCULOS
+    this.router.navigate(['/articulos'])
   }
 
   decodeToken() {

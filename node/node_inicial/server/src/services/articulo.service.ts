@@ -11,16 +11,16 @@ export class ArticuloService {
 
     }
 
-    update(id: number, nombre: string, descripcion: string, stock: number, referencia: string, precio: number, categoria: string, peso: number, foto: string): Promise<[number, any]> {
-        return Articulo.update({nombre, descripcion, stock, referencia, precio, categoria, peso, foto}, {
+    update(id: number, nombre: string, descripcion: string, stock: number, observaciones: string, referencia: string, precio: number, categoria: string, peso: number, foto: string): Promise<[number, any]> {
+        return Articulo.update({nombre, descripcion, stock, observaciones, referencia, precio, categoria, peso, foto}, {
             where: {id}
         })
 
     }
 
-    save(nombre: string, descripcion: string, stock: number, referencia: string, precio: number, categoria: string, peso: number, foto: string) {
+    save(nombre: string, descripcion: string, stock: number, observaciones: string, referencia: string, precio: number, categoria: string, peso: number, foto: string) {
         return Articulo.create({
-            nombre, descripcion, stock, referencia, precio, categoria, peso, foto
+            nombre, descripcion, stock, observaciones, referencia, precio, categoria, peso, foto
         })
     }
 

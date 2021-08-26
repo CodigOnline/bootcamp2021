@@ -1,0 +1,22 @@
+<mat-nav-list>
+  <a href="https://keep.google.com/" mat-list-item (click)="openLink($event)">
+    <span mat-line><fa-icon [icon]="faWhatsapp"></fa-icon> Enviar por WhatsApp </span>
+    <span mat-line>Información de: {{data.articulo.nombre}}</span>
+  </a>
+
+  <a
+    href="mailto:?subject=Envio de información&body=Buenos días,%0D%0ATe adjunto información sobre el artículo visto en http://bootcamp.codigonline.com%0D%0ANombre: {{data.articulo.nombre}}
+    %0D%0A Descripcion: {{data.articulo.descripcion}}
+%0D%0A Precio: {{data.articulo.precio}}
+%0D%0AEspero que sea de tu agrado.%0D%0A
+%0D%0AEstamos en contacto.
+%0D%0A
+%0D%0ASaludos.
+%0D%0A
+%0D%0AAlvaro."
+    mat-list-item (click)="openLink($event)">
+    <span mat-line><fa-icon [icon]="faEnvelope"></fa-icon> Enviar por e-mail </span>
+    <span mat-line>Información de: {{data.articulo.nombre}}</span>
+  </a>
+
+</mat-nav-list>

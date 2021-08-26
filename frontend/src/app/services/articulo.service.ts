@@ -9,6 +9,8 @@ import {
 } from "../entities/Articulo.model";
 import {BehaviorSubject} from "rxjs";
 import {ToastService} from "./toast.service";
+import {MatDialogRef} from "@angular/material/dialog";
+import {ArticuloFormComponent} from "../components/navbar/articulos/articulo-form/articulo-form.component";
 
 @Injectable({
   providedIn: 'root'
@@ -44,17 +46,41 @@ export class ArticuloService {
   }
 
   //PETICIONES PARA ADMINS!!
-  save(articulo: ArticuloModel) {
+  save(articulo: ArticuloModel, ref: MatDialogRef<ArticuloFormComponent>) {
     this.http.post<ArticuloModelResponse>('articulos', articulo) //peticion post sirve para crear algo //articulos--> http://localhost:3000/articulos
       .pipe(first())
       .subscribe((data) => {
         this.toast.success(data.msg)
         this.articulos.value.push(data.articulo)
         this.articulos.next(this.articulos.value)
+        ref.close()
       })
   }
 
-  update(articulo: ArticuloModel) {
+  update(articulo: ArticuloModel, ref: MatDialogRef<ArticuloFormComponent>) {
+    this.http.put(`articulos/${articulo.id}`, articulo)
+      .pipe(first())
+      .subscribe((data: any) => {
+        this.toast.success(data.msg)
+        //ACTUALIZAR EN EL BEHAVIOUR SUBJECT
+        /*
+        1- BUSCAR EL OBJETO A REEMPLAZAR
+        2- REEMPLAZAR EL OBJECTO
+         */
+        /*
+        const encontrado = this.articulos.value.filter(filtro => filtro.id === articulo.id)[0]
+        const pos = this.articulos.value.indexOf(encontrado)
+        this.articulos.value[pos] = articulo
+        this.articulos.next(this.articulos.value)*/
+        const newList = this.articulos.value.map(value => {
+          if (value.id === articulo.id) {
+            value = articulo
+          }
+          return value
+        })
+        this.articulos.next(newList)
+        ref.close()
+      })
   }
 
   delete(id: number) {

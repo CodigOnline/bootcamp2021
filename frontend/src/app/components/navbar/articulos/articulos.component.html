@@ -12,8 +12,26 @@
         <h5 class="card-title">{{ articulo.nombre }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{articulo.precio}}€</h6>
         <p class="card-text">{{articulo.descripcion}}</p>
-        <a href="#" class="card-link" *ngIf="articulo.stock>0">Añadir al carrito</a>
-        <a href="#" class="card-link">Compartir</a>
+        <div class="row text-center">
+          <div class="col-4">
+            <a href="#" class="card-link" *ngIf="articulo.stock>0"
+               matTooltip="Añadir al carrito"
+            ><fa-icon [icon]="faCartPlus"></fa-icon></a>
+          </div>
+          <div class="col-4">
+            <a class="card-link" (click)="openSheet(articulo)"
+               matTooltip="Compartir"
+            ><fa-icon [icon]="faShareSquare"></fa-icon></a>
+          </div>
+          <div class="col-4">
+            <a class="card-link"
+               href="https://wa.me/34634523657?text=Quiero información del artículo {{articulo.nombre}}"
+               matTooltip="Solicitar información"
+            >
+              <fa-icon [icon]="faInfoCircle"></fa-icon>
+            </a>
+          </div>
+        </div>
       </div>
       <div class="card-footer" *ngIf="isAdmin()">
         <div class="row">

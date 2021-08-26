@@ -6,8 +6,13 @@ import {ArticuloModel} from "../../../entities/Articulo.model";
 import {LoginService} from "../../../services/login.service";
 import {faEdit} from "@fortawesome/free-regular-svg-icons";
 import {faTrashAlt} from "@fortawesome/free-regular-svg-icons";
+import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
+import {faCartPlus} from "@fortawesome/free-solid-svg-icons";
+import {faShareSquare} from "@fortawesome/free-solid-svg-icons";
 import {MatDialog} from "@angular/material/dialog";
 import {ArticuloFormComponent} from "./articulo-form/articulo-form.component";
+import {MatBottomSheet} from "@angular/material/bottom-sheet";
+import {ShareArticuloComponent} from "./share/share-articulo.component";
 
 
 @Component({
@@ -31,12 +36,15 @@ import {ArticuloFormComponent} from "./articulo-form/articulo-form.component";
 export class ArticulosComponent implements OnInit {
   editar = faEdit;
   faTrash = faTrashAlt
-
+  faInfoCircle = faInfoCircle;
+  faCartPlus = faCartPlus;
+  faShareSquare = faShareSquare;
   articulos: ArticuloModel[] = []
 
   constructor(private articuloService: ArticuloService,
               private loginService: LoginService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private bottomSheet: MatBottomSheet) {
   }
 
   ngOnInit(): void {
@@ -63,6 +71,14 @@ export class ArticulosComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  openSheet(articulo: ArticuloModel) {
+    this.bottomSheet.open(ShareArticuloComponent, {
+      data: {
+        articulo: articulo
+      }
+    })
   }
 
   isAdmin() {
