@@ -40,8 +40,8 @@ export const Articulo = mysql.define<ArticuloModel, NewArticuloModel>('articulos
         allowNull: false
     },
     descripcion: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING(2500),
+        allowNull: false,
     },
     stock: {
         type: Sequelize.INTEGER,

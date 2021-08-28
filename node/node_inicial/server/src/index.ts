@@ -71,7 +71,7 @@ class App {
                         console.log(`${err}`);
                         console.log("No se ha podido crear la tabla usuarios");
                     })
-                Articulo.sync()//ELIMINA LA TABLA Y LUEGO LA CREA
+                Articulo.sync({alter:true})//ELIMINA LA TABLA Y LUEGO LA CREA
                     .then(() => console.log('Tabla Articulos creada correctamente'))
                     .catch((err: any) => {
                         console.log(`${err}`);
