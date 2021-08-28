@@ -2,11 +2,6 @@
   color: red !important; /**SOBREESCRIBIR VALORES EN CUALQUIER MOMENTE*/
   text-decoration: underline;
 }
-
-
-nav{
-  border: 2px solid red;
-}
 a:hover{
   cursor: pointer;
 }

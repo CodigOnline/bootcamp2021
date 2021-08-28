@@ -9,6 +9,7 @@ import {faTrashAlt} from "@fortawesome/free-regular-svg-icons";
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import {faCartPlus} from "@fortawesome/free-solid-svg-icons";
 import {faShareSquare} from "@fortawesome/free-solid-svg-icons";
+import {faCommentDots} from "@fortawesome/free-solid-svg-icons";
 import {MatDialog} from "@angular/material/dialog";
 import {ArticuloFormComponent} from "./articulo-form/articulo-form.component";
 import {MatBottomSheet} from "@angular/material/bottom-sheet";
@@ -39,7 +40,9 @@ export class ArticulosComponent implements OnInit {
   faInfoCircle = faInfoCircle;
   faCartPlus = faCartPlus;
   faShareSquare = faShareSquare;
+  faCommentDots = faCommentDots;
   articulos: ArticuloModel[] = []
+  hoy = new Date()
 
   constructor(private articuloService: ArticuloService,
               private loginService: LoginService,

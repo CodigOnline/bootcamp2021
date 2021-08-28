@@ -14,11 +14,6 @@ export class NavbarComponent implements OnInit {
       path: '/articulos',
       nombre: "Artículos",
       icon: 'A'
-    },
-    {
-      path: '/test',
-      nombre: "Test",
-      icon: 'T'
     }, {
       path: '/opiniones',
       nombre: "Opiniones",

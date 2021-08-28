@@ -1,4 +1,4 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule, Provider} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule, Provider} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -16,17 +16,22 @@ import {NgxSpinnerModule} from "ngx-spinner";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {LoadingInterceptorService} from "./interceptors/loading.interceptor.service";
 import {ErrorsInterceptorService} from "./interceptors/errors.interceptor.service";
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {TokenInterceptorService} from "./interceptors/token-interceptor.service";
 import {BaseUrlInterceptorService} from "./interceptors/base-url-interceptor.service";
-import { ArticuloFormComponent } from './components/navbar/articulos/articulo-form/articulo-form.component';
+import {ArticuloFormComponent} from './components/navbar/articulos/articulo-form/articulo-form.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
-import { ShareArticuloComponent } from './components/navbar/articulos/share/share-articulo.component';
+import {ShareArticuloComponent} from './components/navbar/articulos/share/share-articulo.component';
 import {MatBottomSheetModule} from "@angular/material/bottom-sheet";
 import {MatListModule} from "@angular/material/list";
 import {MatLineModule} from "@angular/material/core";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {TruncatePipe} from './pipes/truncate.pipe';
+import localeEs from '@angular/common/locales/es'
+import {registerLocaleData} from "@angular/common";
+
+registerLocaleData(localeEs, 'es')
 
 @NgModule({
   declarations: [
@@ -38,7 +43,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     RegistroComponent,
     LoginComponent,
     ArticuloFormComponent,
-    ShareArticuloComponent
+    ShareArticuloComponent,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,
@@ -76,6 +82,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
       provide: HTTP_INTERCEPTORS,
       useClass: BaseUrlInterceptorService,
       multi: true
+    }, {
+      provide: LOCALE_ID, useValue: 'es'
     }
   ],
   bootstrap: [AppComponent]

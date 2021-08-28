@@ -6,7 +6,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="isLogged()">
         <li class="nav-item" *ngFor="let ruta of rutas">
           <a class="nav-link" [routerLink]="[ruta.path]" [routerLinkActive]="['active']">{{ruta.nombre}}
             - {{ruta.icon}}</a>
@@ -19,7 +19,7 @@
 
       </ul>
       <ng-template #loggedOut> <!-- CORRESPONDIENTE AL BLOQUE ELSE -->
-        <ul class="navbar-nav mb-2 mb-lg-0 text-end">
+        <ul class="navbar-nav mb-2 mb-lg-0 ms-auto text-end"> <!--margin start auto-->
           <li class="nav-item">
             <a class="nav-link" [routerLink]="'/login'" [routerLinkActive]="['active']">Login</a>
           </li>

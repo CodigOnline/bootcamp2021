@@ -8,31 +8,61 @@
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-5" [@ngForAnimation]="articulos.length">
   <div class="col mb-2" *ngFor="let articulo of articulos">
     <div class="card h-100">
+      <img src="https://picsum.photos/200/300" class="card-img-top" alt="img de prueba">
       <div class="card-body">
         <h5 class="card-title">{{ articulo.nombre }}</h5>
+        <!--<ul>
+          <li>{{hoy}}</li>
+          <li>{{hoy | date:'short'}}</li>
+          <li>{{hoy | date:'medium' | uppercase}}
+          <li>{{hoy | date:'long'}}
+          <li>{{hoy | date:'full'}}
+          <li>{{hoy | date:'shortDate'}}
+          <li>{{hoy | date:'mediumDate'}}
+          <li>{{hoy | date:'longDate'}}
+          <li>{{hoy | date:'fullDate'}}
+          <li>{{hoy | date:'shortTime'}}
+          <li>{{hoy | date:'mediumTime'}}
+          <li>{{hoy | date:'longTime'}}
+          <li>{{hoy | date:'fullTime'}}
+        </ul>-->
         <h6 class="card-subtitle mb-2 text-muted">{{articulo.precio}}€</h6>
-        <p class="card-text">{{articulo.descripcion}}</p>
+        <p class="card-text" matTooltip="{{articulo.descripcion}}">{{(articulo.descripcion | truncate).value}}</p>
+      </div>
+      <div class="card-footer">
         <div class="row text-center">
-          <div class="col-4">
-            <a href="#" class="card-link" *ngIf="articulo.stock>0"
+          <div class="col-3">
+            <a href="" class="card-link" *ngIf="articulo.stock>0"
                matTooltip="Añadir al carrito"
-            ><fa-icon [icon]="faCartPlus"></fa-icon></a>
+            >
+              <fa-icon [icon]="faCartPlus"></fa-icon>
+            </a>
           </div>
-          <div class="col-4">
-            <a class="card-link" (click)="openSheet(articulo)"
-               matTooltip="Compartir"
-            ><fa-icon [icon]="faShareSquare"></fa-icon></a>
-          </div>
-          <div class="col-4">
-            <a class="card-link"
-               href="https://wa.me/34634523657?text=Quiero información del artículo {{articulo.nombre}}"
-               matTooltip="Solicitar información"
+          <div class="col-3">
+            <a href="" class="card-link" *ngIf="articulo.stock>0"
+               matTooltip="Ver más..."
             >
               <fa-icon [icon]="faInfoCircle"></fa-icon>
             </a>
           </div>
+          <div class="col-3">
+            <a class="card-link" (click)="openSheet(articulo)"
+               matTooltip="Compartir"
+            >
+              <fa-icon [icon]="faShareSquare"></fa-icon>
+            </a>
+          </div>
+          <div class="col-3">
+            <a class="card-link"
+               href="https://wa.me/34634523657?text=Quiero información del artículo {{articulo.nombre}}"
+               matTooltip="Solicitar información"
+            >
+              <fa-icon [icon]="faCommentDots"></fa-icon>
+            </a>
+          </div>
         </div>
       </div>
+
       <div class="card-footer" *ngIf="isAdmin()">
         <div class="row">
           <div class="col-6">
