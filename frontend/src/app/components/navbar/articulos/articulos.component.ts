@@ -14,6 +14,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ArticuloFormComponent} from "./articulo-form/articulo-form.component";
 import {MatBottomSheet} from "@angular/material/bottom-sheet";
 import {ShareArticuloComponent} from "./share/share-articulo.component";
+import {CartService} from "../../../services/cart.service";
 
 
 @Component({
@@ -46,6 +47,7 @@ export class ArticulosComponent implements OnInit {
 
   constructor(private articuloService: ArticuloService,
               private loginService: LoginService,
+              private cartService: CartService,
               public dialog: MatDialog,
               private bottomSheet: MatBottomSheet) {
   }
@@ -91,5 +93,9 @@ export class ArticulosComponent implements OnInit {
   remove(id: number) {
     console.log("Has clicado el boton eliminar para el id: " + id);
     this.articuloService.delete(id)
+  }
+
+  addToCart(articulo: ArticuloModel) {
+    this.cartService.addArticulo(articulo);
   }
 }

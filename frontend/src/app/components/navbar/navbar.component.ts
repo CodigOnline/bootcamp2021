@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {RegistroService} from "../../services/registro.service";
 import {LoginService} from "../../services/login.service";
+import {CartService} from "../../services/cart.service";
 
 @Component({
   selector: 'app-navbar',
@@ -20,23 +21,25 @@ export class NavbarComponent implements OnInit {
       icon: 'O'
     }
   ]
+  numArticulo = 0;
 
-
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private cartService: CartService) {
   }
 
   ngOnInit(): void {
-
+    console.log("Iniciando navbar...");
+    this.numArticulo = this.cartService.getNumeroArticulos()
   }
 
   isLogged() {
     return this.loginService.getLogged()
   }
-  cerrarSesion(){
+
+  cerrarSesion() {
     this.loginService.cerrarSesion();
   }
 
-  getUsuario(){
+  getUsuario() {
     return this.loginService.getUsuario()
   }
 }

@@ -1,0 +1,24 @@
+<table class="table">
+  <thead> <!-- TABLE HEAD -->
+  <tr> <!-- TABLE ROW  FILA DE LA TABLA-->
+    <th scope="col">#</th>
+    <th scope="col">Nombre</th>
+    <th scope="col">Descripción</th>
+    <th scope="col">Cantidad</th>
+    <th scope="col">Acciones</th>
+  </tr>
+  </thead>
+  <tbody> <!-- TABLE BODY -->
+  <tr *ngFor="let map of cart.articulos | keyvalue; let i = index ">
+    <th scope="row">{{i}}</th>
+    <td>{{map.key.nombre}}</td>
+    <td>{{map.key.descripcion}}</td>
+    <td>{{map.value}}</td>
+    <td>
+      <button class="btn btn-outline-success" (click)="addArticulo(map.key)">/\</button>
+      <button class="btn btn-outline-danger" (click)="removeArticulo(map.key)">\/</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<p>Total: {{cart.total}}</p>

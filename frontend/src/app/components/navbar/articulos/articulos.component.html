@@ -32,8 +32,8 @@
       <div class="card-footer">
         <div class="row text-center">
           <div class="col-3">
-            <a href="" class="card-link" *ngIf="articulo.stock>0"
-               matTooltip="Añadir al carrito"
+            <a class="card-link" *ngIf="articulo.stock>0"
+               matTooltip="Añadir al carrito" (click)="addToCart(articulo)"
             >
               <fa-icon [icon]="faCartPlus"></fa-icon>
             </a>

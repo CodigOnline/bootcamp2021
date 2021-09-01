@@ -30,6 +30,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {TruncatePipe} from './pipes/truncate.pipe';
 import localeEs from '@angular/common/locales/es'
 import {registerLocaleData} from "@angular/common";
+import { CartComponent } from './components/navbar/cart/cart.component';
 
 registerLocaleData(localeEs, 'es')
 
@@ -44,7 +45,8 @@ registerLocaleData(localeEs, 'es')
     LoginComponent,
     ArticuloFormComponent,
     ShareArticuloComponent,
-    TruncatePipe
+    TruncatePipe,
+    CartComponent
   ],
   imports: [
     BrowserModule,
