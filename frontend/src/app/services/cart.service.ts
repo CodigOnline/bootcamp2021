@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {CartModel} from "../entities/Cart.model";
 import {ArticuloModel} from "../entities/Articulo.model";
 import {ToastService} from "./toast.service";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -17,20 +18,19 @@ export class CartService {
   //DESCUENTO QUE TIENE LA COMPRA
   //IMPUESTOS QUE TIENE LA COMPRA
 
-  private cart: CartModel;
+  private cart: CartModel; //la misma posicion de memoria --> paso por referencia
+  cartSubject: BehaviorSubject<CartModel>
 
   constructor(private toast: ToastService) {
     this.cart = {
       articulos: new Map<ArticuloModel, number>(),
-      total: 0
+      totalPrecio: 0,
+      totalArticulos: 0
     }
+    this.cartSubject = new BehaviorSubject<CartModel>(this.cart)
   }
 
-  getCart() {
-    return this.cart;
-  }
-
-  getNumeroArticulos() {
+  /*getNumeroArticulos() {
     //return this.cart.articulos.size //SOLO DEVOLVEMOS LA CANTIDAD DE ARTICULOS DIFERENTES
     let total = 0;
     this.cart.articulos.forEach((value: number) => {
@@ -38,6 +38,10 @@ export class CartService {
     })
     return total;
   }
+
+  getTotal() {
+    return this.total;
+  }*/
 
   addArticulo(articulo: ArticuloModel) {
     let cantidad = this.cart.articulos.get(articulo)
@@ -51,7 +55,9 @@ export class CartService {
     if (cantidad <= articulo.stock) {
       this.toast.success("Artículo añadido correctamente")
       this.cart.articulos.set(articulo, cantidad)
-      this.cart.total += articulo.precio;
+      this.cart.totalPrecio += articulo.precio;
+      this.cart.totalArticulos += 1;
+      this.cartSubject.next(this.cart);
     } else {
       this.toast.warning("No hay stock suficiente para añadir más veces este artículo")
     }
@@ -59,13 +65,15 @@ export class CartService {
 
   removeArticulo(articulo: ArticuloModel) {
     let cantidad = this.cart.articulos.get(articulo)! // La ! --> exige a que no sea undefined
-    this.cart.total -= articulo.precio
+    this.cart.totalPrecio -= articulo.precio
+    this.cart.totalArticulos -= 1
     if (cantidad == 1) {
       this.cart.articulos.delete(articulo)
     } else {
       cantidad -= 1;
       this.cart.articulos.set(articulo, cantidad) //ACTUALIZAMOS EL CARRITO RESTANDO UN ARTÍCULO
     }
+    this.cartSubject.next(this.cart);
   }
 
 }

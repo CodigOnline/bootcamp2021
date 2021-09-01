@@ -8,6 +8,7 @@ export interface CartModel {
   //JABÓN 1 UNIDAD 3€
   //BOLI 1 UNIDAD
   articulos: Map<ArticuloModel, number> //MAPA K V
-  total: number,
+  totalPrecio: number,
+  totalArticulos: number;
 
 }

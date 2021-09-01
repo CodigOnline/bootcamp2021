@@ -14,7 +14,7 @@
       </ul>
       <ul class="navbar-nav mb-2 mb-lg-0 text-end" *ngIf="isLogged();else loggedOut">
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="'/cart'" [routerLinkActive]="['active']">Cart ({{numArticulo}})</a>
+          <a class="nav-link" [routerLink]="'/cart'" [routerLinkActive]="['active']">Cart ({{numArticulos}})</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" (click)="cerrarSesion()">{{getUsuario()?.username}} Cerrar sesión</a>

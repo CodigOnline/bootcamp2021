@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {RegistroService} from "../../services/registro.service";
 import {LoginService} from "../../services/login.service";
 import {CartService} from "../../services/cart.service";
+import {CartModel} from "../../entities/Cart.model";
+import {ArticuloModel} from "../../entities/Articulo.model";
 
 @Component({
   selector: 'app-navbar',
@@ -21,14 +23,15 @@ export class NavbarComponent implements OnInit {
       icon: 'O'
     }
   ]
-  numArticulo = 0;
+  numArticulos = 0;
 
   constructor(private loginService: LoginService, private cartService: CartService) {
   }
 
   ngOnInit(): void {
     console.log("Iniciando navbar...");
-    this.numArticulo = this.cartService.getNumeroArticulos()
+    //this.numArticulo = this.cartService.getTotal() //number --> paso por copia
+    this.cartService.cartSubject.subscribe(cart => this.numArticulos = cart.totalArticulos)
   }
 
   isLogged() {
