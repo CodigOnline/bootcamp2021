@@ -249,8 +249,7 @@
       <label for="input_foto" class="col-form-label">foto</label>
     </div>
     <div class="col-6 col-md-4">
-      <input type="text" id="input_foto" class="form-control" aria-describedby="fotoHelpInline" [autofocus]="false"
-             formControlName="foto">
+      <input type="file" id="input_foto" class="form-control" aria-describedby="fotoHelpInline" [autofocus]="false"  (change)="ficheroSeleccionado($event)">
       <div *ngIf="formUtils.get('foto').errors && (formUtils.get('foto').touched || formUtils.get('foto').dirty)" class="invalid">
         <!--{{JSON.stringify(formUtils.get('foto').errors)}}-->
         <!-- El interrogante determina si algo es o no es nullo, en caso de ser nullo lo ignora en caso de no serlo continua-->

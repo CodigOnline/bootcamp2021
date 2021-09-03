@@ -16,7 +16,8 @@ export class ArticuloFormComponent implements OnInit {
   formulario: FormGroup
   formUtils = new FormUtils()
   articulo: ArticuloModel = {} as ArticuloModel
-
+  foto:any;
+  extensionesAdmitidas=["jpg","jpeg","png","gif"]
   constructor(private formBuilder: FormBuilder,
               private toast: ToastService,
               private articuloService: ArticuloService,
@@ -54,12 +55,25 @@ export class ArticuloFormComponent implements OnInit {
     console.log(this.articulo);
     //SI TIENE ID == ACTUALIZAR
     //SI NO TIENE ID == CREAR
-
+    if (this.foto!==null){
+      this.articuloService.setFoto(this.foto)
+    }
     if (this.articulo.id) //SI TIENE ID QUIERE DECIR QUE EL ARTICULO EXISTE EN LA BD Y SOLO HAY QUE ACTUALIZARLO
       this.articuloService.update(this.articulo, this.dialogRef)
     else
       this.articuloService.save(this.articulo, this.dialogRef)
 
+  }
+
+  ficheroSeleccionado(event:any){
+    this.foto=event.target.files[0];
+    const extension:string = this.foto.type.split("/")[1]
+    if (this.extensionesAdmitidas.includes(extension)) {
+      this.formUtils.get('foto').setValue(this.foto.name)
+    }else{
+      this.foto=null;
+      this.toast.warning(`Extension ${extension} NO admitida, sube otra foto`);
+    }
   }
 
 }

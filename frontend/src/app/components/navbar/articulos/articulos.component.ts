@@ -66,7 +66,7 @@ export class ArticulosComponent implements OnInit {
       articulo = {} as ArticuloModel
     }
     console.log(articulo);
-    const dialogRef = this.dialog.open(ArticuloFormComponent, {
+     this.dialog.open(ArticuloFormComponent, {
       data: {
         articulo: articulo
       },
@@ -74,9 +74,6 @@ export class ArticulosComponent implements OnInit {
       height: '80%'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
   }
 
   openSheet(articulo: ArticuloModel) {
@@ -101,16 +98,12 @@ export class ArticulosComponent implements OnInit {
   }
 
   abrirDetalles(articulo: ArticuloModel) {
-    const dialogRef = this.dialog.open(ArticuloDetallesComponent, {
+    this.dialog.open(ArticuloDetallesComponent, {
       data: {
         articulo: articulo
       },
       width: '80%',
       height: '80%'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 }

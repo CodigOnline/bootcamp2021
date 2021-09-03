@@ -10,6 +10,7 @@ import Log from "./settings/logger.winston";
 import {Usuario} from "./database/models/usuario.model";
 import {Articulo} from "./database/models/articulo.model";
 import {Opinion} from "./database/models/opinion.model";
+import path from "path";
 
 /*import {Usuario} from "./database/models/usuario.model";
 import {Articulo} from "./database/models/articulo.model";*/
@@ -35,9 +36,10 @@ class App {
     private middlewares() {
         this.app.use(morgan('dev'));
         this.app.use(express.json()) //TRANSFORMAR EL BODY EN UN JSON
+        this.app.use('/img/articulos',express.static(path.join(__dirname,"../public/articulos/imagenes/")));
         this.app.use((_: express.Request, response: express.Response, next: express.NextFunction) => {
             response.header('Access-Control-Allow-Origin', 'http://localhost:4200')
-            response.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+            response.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method')
             response.header('Access-Control-Allow-Methods','GET, POST, PUT, DELETE, OPTIONS')
             next();
         })

@@ -89,3 +89,14 @@ export function remove(request: express.Request, response: express.Response) {
             return response.json({msg: 'No se han podido eliminar el articulo', err})
         })
 }
+
+export function upload(request:express.Request,response:express.Response){
+
+    const fichero = request.file;
+    if (!fichero){
+        return response.status(400).json({msg:'Error al subir la imagen'})
+    }
+    return response.json({
+        fichero
+    })
+}

@@ -16,6 +16,7 @@ import {ArticuloFormComponent} from "../components/navbar/articulos/articulo-for
   providedIn: 'root'
 })
 export class ArticuloService {
+  private foto:any|null;
 
   //PARA GUARDAR LOS DATOS QUE HEMOS RECIBIDO
   //LA LISTA PRIVADA DE ARTICULOS QUE HEMOS RECUPERADO DEL SERVIDOR
@@ -50,6 +51,7 @@ export class ArticuloService {
     this.http.post<ArticuloModelResponse>('articulos', articulo) //peticion post sirve para crear algo //articulos--> http://localhost:3000/articulos
       .pipe(first())
       .subscribe((data) => {
+        this.uploadFoto();
         this.toast.success(data.msg)
         this.articulos.value.push(data.articulo)
         this.articulos.next(this.articulos.value)
@@ -61,6 +63,7 @@ export class ArticuloService {
     this.http.put(`articulos/${articulo.id}`, articulo)
       .pipe(first())
       .subscribe((data: any) => {
+        this.uploadFoto();
         this.toast.success(data.msg)
         //ACTUALIZAR EN EL BEHAVIOUR SUBJECT
         /*
@@ -94,5 +97,23 @@ export class ArticuloService {
         console.log(articulosFiltrados);
         this.articulos.next(articulosFiltrados) //PARTE MÁS IMPORTANTE
       })
+  }
+
+  uploadFoto(){
+    if (this.foto!==null) {
+      const formData = new FormData();
+      formData.append("imagen", this.foto)
+
+      this.http.post('articulos/upload', formData)
+        .pipe(first())
+        .subscribe((data) => {
+          console.log("Imagen subida correctamente");
+          this.setFoto(null)
+        })
+    }
+  }
+
+  setFoto(foto:any){
+    this.foto=foto;
   }
 }
