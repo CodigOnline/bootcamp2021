@@ -31,6 +31,7 @@ import {TruncatePipe} from './pipes/truncate.pipe';
 import localeEs from '@angular/common/locales/es'
 import {registerLocaleData} from "@angular/common";
 import { CartComponent } from './components/navbar/cart/cart.component';
+import { ArticuloDetallesComponent } from './components/shared/articulo-detalles/articulo-detalles.component';
 
 registerLocaleData(localeEs, 'es')
 
@@ -46,7 +47,8 @@ registerLocaleData(localeEs, 'es')
     ArticuloFormComponent,
     ShareArticuloComponent,
     TruncatePipe,
-    CartComponent
+    CartComponent,
+    ArticuloDetallesComponent
   ],
   imports: [
     BrowserModule,

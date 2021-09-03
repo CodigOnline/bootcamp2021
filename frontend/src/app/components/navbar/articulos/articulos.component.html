@@ -39,8 +39,8 @@
             </a>
           </div>
           <div class="col-3">
-            <a href="" class="card-link" *ngIf="articulo.stock>0"
-               matTooltip="Ver más..."
+            <a class="card-link" *ngIf="articulo.stock>0"
+               matTooltip="Ver más..." (click)="abrirDetalles(articulo)"
             >
               <fa-icon [icon]="faInfoCircle"></fa-icon>
             </a>

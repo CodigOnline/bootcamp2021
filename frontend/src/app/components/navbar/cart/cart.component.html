@@ -22,7 +22,8 @@
   <tr *ngFor="let map of cart.articulos | keyvalue; let i = index ">
     <th scope="row">{{i}}</th>
     <td>{{map.key.nombre}}</td>
-    <td>{{(map.key.descripcion | truncate:30).value}}</td>
+    <td>{{(map.key.descripcion | truncate:30).value}} <span *ngIf="(map.key.descripcion | truncate:30).isTruncate" (click)="abrirDetalles(map.key)"><a
+      class="link-info">Ver más</a></span></td>
     <td class="text-center">{{map.value}}</td>
     <td class="text-center">{{map.key.precio}}€</td>
     <td class="text-center">{{map.key.precio * map.value}}€</td> <!-- 2 *3=6-->

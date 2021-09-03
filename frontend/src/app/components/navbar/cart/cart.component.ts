@@ -3,6 +3,8 @@ import {CartService} from "../../../services/cart.service";
 import {CartModel} from "../../../entities/Cart.model";
 import {ArticuloModel} from "../../../entities/Articulo.model";
 import {faPlusCircle, faMinusCircle} from "@fortawesome/free-solid-svg-icons";
+import {ArticuloDetallesComponent} from "../../shared/articulo-detalles/articulo-detalles.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-cart',
@@ -14,7 +16,7 @@ export class CartComponent implements OnInit {
   faMinusCircle = faMinusCircle;
   cart: CartModel
 
-  constructor(private cartService: CartService) {
+  constructor(private cartService: CartService, public dialog: MatDialog) {
     this.cart = {
       articulos: new Map<ArticuloModel, number>(),
       totalPrecio: 0,
@@ -34,6 +36,20 @@ export class CartComponent implements OnInit {
 
   removeArticulo(articulo: ArticuloModel) {
     this.cartService.removeArticulo(articulo)
+  }
+
+  abrirDetalles(articulo: ArticuloModel) {
+    const dialogRef = this.dialog.open(ArticuloDetallesComponent, {
+      data: {
+        articulo: articulo
+      },
+      width: '80%',
+      height: '80%'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
 }

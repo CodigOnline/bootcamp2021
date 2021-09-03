@@ -2,6 +2,3 @@
   color: red !important; /**SOBREESCRIBIR VALORES EN CUALQUIER MOMENTE*/
   text-decoration: underline;
 }
-a:hover{
-  cursor: pointer;
-}

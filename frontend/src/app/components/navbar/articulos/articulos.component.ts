@@ -15,6 +15,7 @@ import {ArticuloFormComponent} from "./articulo-form/articulo-form.component";
 import {MatBottomSheet} from "@angular/material/bottom-sheet";
 import {ShareArticuloComponent} from "./share/share-articulo.component";
 import {CartService} from "../../../services/cart.service";
+import {ArticuloDetallesComponent} from "../../shared/articulo-detalles/articulo-detalles.component";
 
 
 @Component({
@@ -97,5 +98,19 @@ export class ArticulosComponent implements OnInit {
 
   addToCart(articulo: ArticuloModel) {
     this.cartService.addArticulo(articulo);
+  }
+
+  abrirDetalles(articulo: ArticuloModel) {
+    const dialogRef = this.dialog.open(ArticuloDetallesComponent, {
+      data: {
+        articulo: articulo
+      },
+      width: '80%',
+      height: '80%'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }

@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>Formulario de Artículo</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="card h-100">
+    <img src="https://picsum.photos/200/300" class="card-img-top" alt="img de prueba">
+    <div class="card-body">
+      <h5 class="card-title">{{ articulo.nombre }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{articulo.precio}}€</h6>
+      <p class="card-text">{{articulo.descripcion}}</p>
+    </div>
+    <div class="card-footer">
+      <div class="row text-center">
+        <div class="col-4 link">
+          <a class="card-link" *ngIf="articulo.stock>0"
+             matTooltip="Añadir al carrito" (click)="addToCart(articulo)"
+          >
+            <fa-icon [icon]="faCartPlus"></fa-icon>
+          </a>
+        </div>
+        <div class="col-4">
+          <a class="card-link" (click)="openSheet(articulo)"
+             matTooltip="Compartir"
+          >
+            <fa-icon [icon]="faShareSquare"></fa-icon>
+          </a>
+        </div>
+        <div class="col-4">
+          <a class="card-link"
+             href="https://wa.me/34634523657?text=Quiero información del artículo {{articulo.nombre}}"
+             matTooltip="Solicitar información"
+          >
+            <fa-icon [icon]="faCommentDots"></fa-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn btn-outline-success mx-2" cdkFocusInitial mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>
