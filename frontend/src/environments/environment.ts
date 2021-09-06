@@ -4,6 +4,7 @@
 
 export const environment = {
   backend: 'http://localhost:3000',
+  backendImg: 'http://localhost:3000/img/articulos/',
   production: false
 };
 

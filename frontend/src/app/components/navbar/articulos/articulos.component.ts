@@ -16,6 +16,7 @@ import {MatBottomSheet} from "@angular/material/bottom-sheet";
 import {ShareArticuloComponent} from "./share/share-articulo.component";
 import {CartService} from "../../../services/cart.service";
 import {ArticuloDetallesComponent} from "../../shared/articulo-detalles/articulo-detalles.component";
+import {environment} from "../../../../environments/environment";
 
 
 @Component({
@@ -45,6 +46,7 @@ export class ArticulosComponent implements OnInit {
   faCommentDots = faCommentDots;
   articulos: ArticuloModel[] = []
   hoy = new Date()
+  backend = environment.backendImg
 
   constructor(private articuloService: ArticuloService,
               private loginService: LoginService,
@@ -103,7 +105,6 @@ export class ArticulosComponent implements OnInit {
         articulo: articulo
       },
       width: '80%',
-      height: '80%'
     });
   }
 }

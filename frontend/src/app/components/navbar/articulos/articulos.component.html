@@ -8,7 +8,7 @@
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-5" [@ngForAnimation]="articulos.length">
   <div class="col mb-2" *ngFor="let articulo of articulos">
     <div class="card h-100">
-      <img src="https://picsum.photos/200/300" class="card-img-top" alt="img de prueba">
+      <img src="{{backend}}{{articulo.foto}}" class="card-img-top" alt="img de prueba">
       <div class="card-body">
         <h5 class="card-title">{{ articulo.nombre }}</h5>
         <!--<ul>

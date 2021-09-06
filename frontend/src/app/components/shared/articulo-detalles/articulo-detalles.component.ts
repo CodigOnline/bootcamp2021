@@ -11,6 +11,7 @@ import {faCommentDots} from "@fortawesome/free-solid-svg-icons";
 import {ShareArticuloComponent} from "../../navbar/articulos/share/share-articulo.component";
 import {CartService} from "../../../services/cart.service";
 import {MatBottomSheet} from "@angular/material/bottom-sheet";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-articulo-detalles',
@@ -23,7 +24,7 @@ export class ArticuloDetallesComponent implements OnInit {
   faCartPlus = faCartPlus;
   faShareSquare = faShareSquare;
   faCommentDots = faCommentDots;
-
+  backend = environment.backendImg
   constructor(
     private cartService: CartService,
     private bottomSheet: MatBottomSheet,

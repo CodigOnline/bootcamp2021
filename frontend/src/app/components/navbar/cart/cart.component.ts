@@ -43,8 +43,7 @@ export class CartComponent implements OnInit {
       data: {
         articulo: articulo
       },
-      width: '80%',
-      height: '80%'
+      width: '80%'
     });
 
     dialogRef.afterClosed().subscribe(result => {

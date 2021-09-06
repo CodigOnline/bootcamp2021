@@ -10,7 +10,9 @@ import Log from "./settings/logger.winston";
 import {Usuario} from "./database/models/usuario.model";
 import {Articulo} from "./database/models/articulo.model";
 import {Opinion} from "./database/models/opinion.model";
-import path from "path";
+import {Compra} from "./database/models/compra.model";
+import {CompraArticulo} from "./database/models/compra_articulos.model";
+//import path from "path";
 
 /*import {Usuario} from "./database/models/usuario.model";
 import {Articulo} from "./database/models/articulo.model";*/
@@ -36,11 +38,12 @@ class App {
     private middlewares() {
         this.app.use(morgan('dev'));
         this.app.use(express.json()) //TRANSFORMAR EL BODY EN UN JSON
-        this.app.use('/img/articulos',express.static(path.join(__dirname,"../public/articulos/imagenes/")));
+        this.app.use('/img/articulos', express.static("./public/articulos/imagenes/"));
+        //this.app.use('/img/articulos',express.static(path.join(__dirname,"../public/articulos/imagenes/")));
         this.app.use((_: express.Request, response: express.Response, next: express.NextFunction) => {
             response.header('Access-Control-Allow-Origin', 'http://localhost:4200')
             response.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method')
-            response.header('Access-Control-Allow-Methods','GET, POST, PUT, DELETE, OPTIONS')
+            response.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
             next();
         })
     }
@@ -67,17 +70,11 @@ class App {
 
                 Usuario.sync()
                     .then(() => {
-                        console.log("Comprobación de Usuario correcta");
+                        console.log("Tabla Usuario creada correctamente");
                     })
                     .catch((err: any) => {
                         console.log(`${err}`);
                         console.log("No se ha podido crear la tabla usuarios");
-                    })
-                Articulo.sync({alter:true})//ELIMINA LA TABLA Y LUEGO LA CREA
-                    .then(() => console.log('Tabla Articulos creada correctamente'))
-                    .catch((err: any) => {
-                        console.log(`${err}`);
-                        console.log("No se ha podido crear la tabla articulos");
                     })
                 Opinion.sync()//ELIMINA LA TABLA Y LUEGO LA CREA
                     .then(() => console.log('Tabla Opiniones creada correctamente'))
@@ -85,6 +82,30 @@ class App {
                         console.log(`${err}`);
                         console.log("No se ha podido crear la tabla opiniones");
                     })
+                Compra.sync({alter: true})
+                    .then(() => {
+                        console.log('Tabla Compra creada correctamente')
+                        Articulo.sync({alter: true})//ELIMINA LA TABLA Y LUEGO LA CREA
+                            .then(() => {
+                                console.log('Tabla Articulos creada correctamente')
+                                CompraArticulo.sync({alter: true})
+                                    .then(() => console.log('Tabla CompraArticulo creada correctamente'))
+                                    .catch((err: any) => {
+                                        console.log(`${err}`);
+                                        console.log("No se ha podido crear la tabla CompraArticulo");
+                                    })
+                            })
+                            .catch((err: any) => {
+                                console.log(`${err}`);
+                                console.log("No se ha podido crear la tabla articulos");
+                            })
+
+                    })
+                    .catch((err: any) => {
+                        console.log(`${err}`);
+                        console.log("No se ha podido crear la tabla Compra");
+                    })
+
                 this.app.listen(this.app.get('port'), () => {
                     Log.info(`Servidor iniciado en el puerto ${this.app.get('port')}`);
                 })
