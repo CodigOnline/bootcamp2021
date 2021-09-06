@@ -14,7 +14,8 @@ export interface CompraModel extends Sequelize.Model {
     usuarioId: number,
     importe: number,
     formaDePago: FormaDePago,
-    fecha: Date
+    fecha: Date,
+    gastosEnvio: number
 
 }
 
@@ -23,7 +24,8 @@ export interface NewCompraModel {
     usuarioId: number,
     importe: number,
     formaDePago: FormaDePago,
-    fecha: Date
+    fecha: Date,
+    gastosEnvio: number
 }
 
 export const Compra = mysql.define<CompraModel, NewCompraModel>('compras', {
@@ -42,6 +44,11 @@ export const Compra = mysql.define<CompraModel, NewCompraModel>('compras', {
     fecha: {
         type: Sequelize.DATE,
         defaultValue: new Date(),
+        allowNull: false
+    },
+    gastosEnvio: {
+        type: Sequelize.INTEGER,
+        defaultValue: 5,
         allowNull: false
     }
 
