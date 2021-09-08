@@ -20,13 +20,10 @@ export class CartService {
 
   private cart: CartModel; //la misma posicion de memoria --> paso por referencia
   cartSubject: BehaviorSubject<CartModel>
+  private gastosEnvio = 5;
 
   constructor(private toast: ToastService) {
-    this.cart = {
-      articulos: new Map<ArticuloModel, number>(),
-      totalPrecio: 0,
-      totalArticulos: 0
-    }
+    this.cart = this.newCart();
     this.cartSubject = new BehaviorSubject<CartModel>(this.cart)
   }
 
@@ -57,6 +54,9 @@ export class CartService {
       this.cart.articulos.set(articulo, cantidad)
       this.cart.totalPrecio += articulo.precio;
       this.cart.totalArticulos += 1;
+      if (this.cart.totalArticulos > 6) {
+        this.cart.envio = 0;
+      }
       this.cartSubject.next(this.cart);
     } else {
       this.toast.warning("No hay stock suficiente para añadir más veces este artículo")
@@ -67,6 +67,9 @@ export class CartService {
     let cantidad = this.cart.articulos.get(articulo)! // La ! --> exige a que no sea undefined
     this.cart.totalPrecio -= articulo.precio
     this.cart.totalArticulos -= 1
+    if (this.cart.totalArticulos <= 6) {
+      this.cart.envio = this.gastosEnvio;
+    }
     if (cantidad == 1) {
       this.cart.articulos.delete(articulo)
     } else {
@@ -74,6 +77,15 @@ export class CartService {
       this.cart.articulos.set(articulo, cantidad) //ACTUALIZAMOS EL CARRITO RESTANDO UN ARTÍCULO
     }
     this.cartSubject.next(this.cart);
+  }
+
+  newCart(): CartModel {
+    return {
+      articulos: new Map<ArticuloModel, number>(),
+      totalPrecio: 0,
+      totalArticulos: 0,
+      envio: this.gastosEnvio
+    }
   }
 
 }

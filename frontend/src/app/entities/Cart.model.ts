@@ -10,5 +10,6 @@ export interface CartModel {
   articulos: Map<ArticuloModel, number> //MAPA K V
   totalPrecio: number,
   totalArticulos: number;
+  envio: number
 
 }

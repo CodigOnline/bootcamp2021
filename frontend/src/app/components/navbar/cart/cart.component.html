@@ -1,4 +1,4 @@
-<div class="alert alert-warning text-center" role="alert" *ngIf="cart.totalArticulos<6;else envioGratis">
+<div class="alert alert-warning text-center" role="alert" *ngIf="cart.totalArticulos<=6;else envioGratis">
   Envío gratuito con más de 6 artículos.
 </div>
 <ng-template #envioGratis>
@@ -22,7 +22,8 @@
   <tr *ngFor="let map of cart.articulos | keyvalue; let i = index ">
     <th scope="row">{{i}}</th>
     <td>{{map.key.nombre}}</td>
-    <td>{{(map.key.descripcion | truncate:30).value}} <span *ngIf="(map.key.descripcion | truncate:30).isTruncate" (click)="abrirDetalles(map.key)"><a
+    <td>{{(map.key.descripcion | truncate:30).value}} <span *ngIf="(map.key.descripcion | truncate:30).isTruncate"
+                                                            (click)="abrirDetalles(map.key)"><a
       class="link-info">Ver más</a></span></td>
     <td class="text-center">{{map.value}}</td>
     <td class="text-center">{{map.key.precio}}€</td>
@@ -40,10 +41,10 @@
 </table>
 <p class="text-end"><b>Total: {{cart.totalPrecio}}€</b></p>
 <div *ngIf="cart.totalArticulos>0">
-  <p class="text-end"><b>Envio: {{ cart.totalArticulos < 6 ? '5€' : 'Regalo de la casa :)'}}</b></p>
-  <p class="text-end"><b>Total con envío: {{cart.totalPrecio + (cart.totalArticulos < 6 ? 5 : 0)}}€</b></p>
+  <p class="text-end"><b>Envio: {{ cart.envio !== 0 ? cart.envio + '€' : 'Regalo de la casa :)'}}</b></p>
+  <p class="text-end"><b>Total con envío: {{cart.totalPrecio + cart.envio}}€</b></p>
   <div class="d-grid d-flex justify-content-end">
-    <button class="btn btn-outline-success">Comprar</button>
+    <button class="btn btn-outline-success" (click)="comprar()">Comprar</button>
   </div>
 </div>
 <!--

@@ -3,6 +3,7 @@ import UsuarioRouter from './routes/usuarios.routes';
 import ArticulosRouter from './routes/articulos.routes';
 import LoginRouter from './routes/login.routes';
 import OpinionesRouter from './routes/opiniones.routes';
+import ComprasRouter from './routes/compras.routes';
 import config from './settings/config';
 import {mysql} from "./database/mysql";
 import morgan from 'morgan'
@@ -11,7 +12,7 @@ import {Usuario} from "./database/models/usuario.model";
 import {Articulo} from "./database/models/articulo.model";
 import {Opinion} from "./database/models/opinion.model";
 import {Compra} from "./database/models/compra.model";
-import {CompraArticulo} from "./database/models/compra_articulos.model";
+import {CompraArticulos} from "./database/models/compra_articulos.model";
 //import path from "path";
 
 /*import {Usuario} from "./database/models/usuario.model";
@@ -53,6 +54,7 @@ class App {
         this.app.use('/usuarios', UsuarioRouter)
         this.app.use('/articulos', ArticulosRouter)
         this.app.use('/opiniones', OpinionesRouter)
+        this.app.use('/compras', ComprasRouter)
     }
 
     private init() {
@@ -88,11 +90,11 @@ class App {
                         Articulo.sync({alter: true})//ELIMINA LA TABLA Y LUEGO LA CREA
                             .then(() => {
                                 console.log('Tabla Articulos creada correctamente')
-                                CompraArticulo.sync({alter: true})
-                                    .then(() => console.log('Tabla CompraArticulo creada correctamente'))
+                                CompraArticulos.sync({alter: true})
+                                    .then(() => console.log('Tabla CompraArticulos creada correctamente'))
                                     .catch((err: any) => {
                                         console.log(`${err}`);
-                                        console.log("No se ha podido crear la tabla CompraArticulo");
+                                        console.log("No se ha podido crear la tabla CompraArticulos");
                                     })
                             })
                             .catch((err: any) => {

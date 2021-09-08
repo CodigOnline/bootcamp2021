@@ -16,7 +16,7 @@ import {ArticuloFormComponent} from "../components/navbar/articulos/articulo-for
   providedIn: 'root'
 })
 export class ArticuloService {
-  private foto:any|null;
+  private foto: any | null = null;
 
   //PARA GUARDAR LOS DATOS QUE HEMOS RECIBIDO
   //LA LISTA PRIVADA DE ARTICULOS QUE HEMOS RECUPERADO DEL SERVIDOR
@@ -99,8 +99,8 @@ export class ArticuloService {
       })
   }
 
-  uploadFoto(){
-    if (this.foto!==null) {
+  uploadFoto() {
+    if (this.foto !== null) {
       const formData = new FormData();
       formData.append("imagen", this.foto)
 
@@ -113,7 +113,17 @@ export class ArticuloService {
     }
   }
 
-  setFoto(foto:any){
-    this.foto=foto;
+  setFoto(foto: any) {
+    this.foto = foto;
+  }
+
+  restarStock(id: number, cantidad: number) {
+    const newList = this.articulos.value.map(value => {
+      if (value.id === id) {
+        value.stock -= cantidad
+      }
+      return value
+    })
+    this.articulos.next(newList)
   }
 }

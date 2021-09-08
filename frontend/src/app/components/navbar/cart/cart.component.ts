@@ -5,23 +5,21 @@ import {ArticuloModel} from "../../../entities/Articulo.model";
 import {faPlusCircle, faMinusCircle} from "@fortawesome/free-solid-svg-icons";
 import {ArticuloDetallesComponent} from "../../shared/articulo-detalles/articulo-detalles.component";
 import {MatDialog} from "@angular/material/dialog";
+import {CompraService} from "../../../services/compra.service";
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css']
+  styleUrls: ['./cart.component.css'],
+  providers: [CompraService]
 })
 export class CartComponent implements OnInit {
   faPlusCircle = faPlusCircle;
   faMinusCircle = faMinusCircle;
   cart: CartModel
 
-  constructor(private cartService: CartService, public dialog: MatDialog) {
-    this.cart = {
-      articulos: new Map<ArticuloModel, number>(),
-      totalPrecio: 0,
-      totalArticulos: 0
-    }
+  constructor(private cartService: CartService, public dialog: MatDialog, private compraService:CompraService) {
+    this.cart = this.cartService.newCart();
   }
 
   ngOnInit(): void {
@@ -49,6 +47,10 @@ export class CartComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  comprar() {
+    this.compraService.comprar(this.cart)
   }
 
 }

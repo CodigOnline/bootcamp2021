@@ -15,7 +15,7 @@ export interface NewCompraArticulo {
     cantidad: number
 }
 
-export const CompraArticulo = mysql.define<CompraArticulosModel, NewCompraArticulo>('compra_articulos', {
+export const CompraArticulos = mysql.define<CompraArticulosModel, NewCompraArticulo>('compra_articulos', {
     compraId: {
         type: Sequelize.INTEGER,
         references: {model: Compra, key: 'id'}
@@ -30,5 +30,5 @@ export const CompraArticulo = mysql.define<CompraArticulosModel, NewCompraArticu
     timestamps: false
 })
 
-Compra.belongsToMany(Articulo, {through:CompraArticulo});
-Articulo.belongsToMany(Compra,{through: CompraArticulo});
+Compra.belongsToMany(Articulo, {through:CompraArticulos});
+Articulo.belongsToMany(Compra,{through: CompraArticulos});
