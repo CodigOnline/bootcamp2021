@@ -1,0 +1,49 @@
+<h2>Perfil de usuario</h2>
+
+<table class="table table-striped" *ngFor="let compra of compras">
+  <thead>
+  <tr>
+    <th colspan="5">COMPRA:</th>
+  </tr>
+  <tr>
+    <th>id</th>
+    <th>importe</th>
+    <th>gastosEnvio</th>
+    <th>fecha</th>
+    <th>formaDePago</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <th>{{compra.id}}</th>
+    <td>{{compra.importe}}€</td>
+    <td>{{compra.gastosEnvio}}€</td>
+    <td>{{compra.fecha}}</td>
+    <td>{{compra.formaDePago}}</td>
+  </tr>
+  <tr>
+    <td colspan="5">
+      <table class="table mb-0 align-middle">
+        <thead>
+        <tr>
+          <th>nombre</th>
+          <th>descripcion</th>
+          <th>precio</th>
+          <th>cantidad</th>
+          <th>foto</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let articulo of compra.articulos">
+          <td>{{articulo.nombre}}</td>
+          <td>{{(articulo.descripcion|truncate).value}}</td>
+          <td>{{articulo.precio}}€</td>
+          <td>{{articulo.compra_articulos.cantidad}}</td>
+          <td><img src="{{backend}}{{articulo.foto}}" class="card-img-top" alt="img de prueba"></td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  </tbody>
+</table>

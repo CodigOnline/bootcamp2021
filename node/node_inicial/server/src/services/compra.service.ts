@@ -4,6 +4,8 @@ import {Articulo, ArticuloModel} from "../database/models/articulo.model";
 import {mysql} from "../database/mysql";
 import {Transaction} from "sequelize";
 
+/*import {Usuario} from "../database/models/usuario.model";*/
+
 export class CompraService {
     save(usuarioId: number, importe: number, formaDePago: number, gastosEnvio: number, articulos: CompraArticulo[]) {
         return mysql.transaction((t: Transaction) => {
@@ -58,8 +60,20 @@ export class CompraService {
 
     }
 
-    findAll() {
-
+    findAll(usuarioId: number) {
+        /*return Compra.findAll({
+             where: {usuarioId},
+             attributes:['id','importe','gastosEnvio','fecha','formaDePago'],
+             include: {model: Usuario, attributes:['nombre', 'email']}
+         })*/
+        return Compra.findAll({
+            where: {usuarioId},
+            attributes: ['id', 'importe', 'gastosEnvio', 'fecha', 'formaDePago'],
+            include: {
+                model: Articulo, attributes: ['nombre', 'descripcion', 'foto','precio'],
+                through: {attributes: ['cantidad']}
+            }
+        })
     }
 }
 

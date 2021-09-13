@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {CartModel} from "../entities/Cart.model";
-import {CompraModel} from "../entities/Compra.model";
+import {CompraModel, CompraModelResponse, ComprasModelResponse} from "../entities/Compra.model";
 import {ArticuloModel} from "../entities/Articulo.model";
 import {CompraArticuloModel} from "../entities/CompraArticuloModel";
 import {LoginService} from "./login.service";
@@ -39,6 +39,12 @@ export class CompraService {
         })
         this.router.navigate([''])
       })
+
+  }
+
+  findAll() {
+    const usuarioId = this.loginService.getUsuario()?.id!
+    return this.http.get<ComprasModelResponse>(`compras/${usuarioId}`)
 
   }
 }

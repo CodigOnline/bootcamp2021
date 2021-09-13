@@ -7,6 +7,7 @@ import {RegistroComponent} from "./components/navbar/registro/registro.component
 import {LoginComponent} from "./components/navbar/login/login.component";
 import {ArticuloFormComponent} from "./components/navbar/articulos/articulo-form/articulo-form.component";
 import {CartComponent} from "./components/navbar/cart/cart.component";
+import {UsuarioComponent} from "./components/navbar/usuario/usuario.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'articulos', pathMatch: 'full'},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'registro', component: RegistroComponent},
   {path: 'login', component: LoginComponent},
   {path: 'cart', component: CartComponent},
+  {path: 'usuario', component: UsuarioComponent},
   {path: 'test', component: TestComponent}
 ];
 

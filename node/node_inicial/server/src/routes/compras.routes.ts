@@ -5,7 +5,7 @@ import {checkUser} from "../middleware/jwt.middleware";
 
 const router = Router();
 
-router.route("/:id")
+router.route("/:idUsuario")
     .post(checkUser, save)
     .get(checkUser, findAll)
 
