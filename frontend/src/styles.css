@@ -5,6 +5,7 @@ body{
   padding: 0;
   background-color: rgba(235, 253, 219, 0.5);
 }
+html, body { height: 100%; }
 
 .card-title{
   color:blue;
@@ -17,7 +18,7 @@ a:hover{
   cursor: pointer;
 }
 
-html, body { height: 100%; }
+
 
 
 .invalid{

@@ -11,7 +11,7 @@ export class LoginService {
                 if (usuario === null) {
                     return {resultado: false, msg: `No se ha encontrado con el usuario con el email ${email}`}; //QUE NO ES UN TOKEN
                 }
-                const checkPassword = bcrypt.compareSync(password,usuario.password)
+                const checkPassword = bcrypt.compareSync(password, usuario.password)
                 if (!checkPassword) {
                     return {
                         resultado: false,
@@ -19,9 +19,9 @@ export class LoginService {
                     };//QUE NO ES UN TOKEN
                 }
                 let token = jwt.sign(
-                    {id: usuario.id, username: usuario.username, role: usuario.role},
+                    {id: usuario.id, username: usuario.username, nombre: usuario.nombre, role: usuario.role},
                     String(config.jwt.clave),
-                    {expiresIn:'7d'}
+                    {expiresIn: '7d'}
                 )
                 return {resultado: true, msg: token}; //NOS DEVOLVERÁ UN TOKEN
             })

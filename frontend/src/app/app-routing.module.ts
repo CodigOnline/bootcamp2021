@@ -5,19 +5,21 @@ import {OpinionesComponent} from "./components/navbar/opiniones/opiniones.compon
 import {TestComponent} from "./components/navbar/test/test.component";
 import {RegistroComponent} from "./components/navbar/registro/registro.component";
 import {LoginComponent} from "./components/navbar/login/login.component";
-import {ArticuloFormComponent} from "./components/navbar/articulos/articulo-form/articulo-form.component";
 import {CartComponent} from "./components/navbar/cart/cart.component";
 import {UsuarioComponent} from "./components/navbar/usuario/usuario.component";
+import {AuthenticationGuard} from "./guard/authentication.guard";
+import {NonAuthenticationGuard} from "./guard/non-authentication.guard";
+import {AdminGuard} from "./guard/admin.guard";
 
 const routes: Routes = [
   {path: '', redirectTo: 'articulos', pathMatch: 'full'},
   {path: 'articulos', component: ArticulosComponent},
-  {path: 'articulos/formulario', component: ArticuloFormComponent},
+  {path: 'articulos/formulario', component: TestComponent, canActivate: [AdminGuard]},
   {path: 'opiniones', component: OpinionesComponent},
-  {path: 'registro', component: RegistroComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'cart', component: CartComponent},
-  {path: 'usuario', component: UsuarioComponent},
+  {path: 'registro', component: RegistroComponent, canActivate: [NonAuthenticationGuard]},
+  {path: 'login', component: LoginComponent, canActivate: [NonAuthenticationGuard]},
+  {path: 'cart', component: CartComponent, canActivate: [AuthenticationGuard]},
+  {path: 'usuario', component: UsuarioComponent, canActivate: [AuthenticationGuard]},
   {path: 'test', component: TestComponent}
 ];
 

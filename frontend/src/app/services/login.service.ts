@@ -102,6 +102,7 @@ export class LoginService {
         this.usuario = {
           id: decoded.id,
           username: decoded.username,
+          nombre: decoded.nombre,
           role: decoded.role,
           exp: decoded.exp * 1000 /** MULTIPLICAMOS POR MIL PARA PONER LOS MILISEGUNDOS**/
         }

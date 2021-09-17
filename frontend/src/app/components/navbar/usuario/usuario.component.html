@@ -16,10 +16,16 @@
   <tbody>
   <tr>
     <th>{{compra.id}}</th>
-    <td>{{compra.importe}}€</td>
-    <td>{{compra.gastosEnvio}}€</td>
-    <td>{{compra.fecha}}</td>
-    <td>{{compra.formaDePago}}</td>
+    <td>{{compra.importe |currency:'EUR'}}</td>
+    <td>{{compra.gastosEnvio|currency:'EUR'}}</td>
+    <td>{{compra.fecha | date:'fullDate'}}</td>
+    <td [ngSwitch]="compra.formaDePago">
+      <span *ngSwitchCase="0">TPV</span>
+      <span *ngSwitchCase="1">PAYPAL</span>
+      <span *ngSwitchCase="2">BITCOIN</span>
+      <span *ngSwitchCase="3">EFECTIVO</span>
+    </td>
+    <!--<td>{{compra.formaDePago === 0 ? 'TPV' :( compra.formaDePago === 1 ? 'PAYPAL' : compra.formaDePago === 2 ? 'BITCOIN' : 'EFECTIVO')}}</td>-->
   </tr>
   <tr>
     <td colspan="5">
@@ -37,7 +43,7 @@
         <tr *ngFor="let articulo of compra.articulos">
           <td>{{articulo.nombre}}</td>
           <td>{{(articulo.descripcion|truncate).value}}</td>
-          <td>{{articulo.precio}}€</td>
+          <td>{{articulo.precio|currency:'EUR'}}</td>
           <td>{{articulo.compra_articulos.cantidad}}</td>
           <td><img src="{{backend}}{{articulo.foto}}" class="card-img-top" alt="img de prueba"></td>
         </tr>

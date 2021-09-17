@@ -33,9 +33,8 @@ import {registerLocaleData} from "@angular/common";
 import { CartComponent } from './components/navbar/cart/cart.component';
 import { ArticuloDetallesComponent } from './components/shared/articulo-detalles/articulo-detalles.component';
 import { UsuarioComponent } from './components/navbar/usuario/usuario.component';
-
+import { SplitPipe } from './pipes/split.pipe';
 registerLocaleData(localeEs, 'es')
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +49,8 @@ registerLocaleData(localeEs, 'es')
     TruncatePipe,
     CartComponent,
     ArticuloDetallesComponent,
-    UsuarioComponent
+    UsuarioComponent,
+    SplitPipe
   ],
   imports: [
     BrowserModule,
